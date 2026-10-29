@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+playwright-report/
+test-results/
+.env*
+!.env.example
+
+.vercel/
+release/
+
+# Retain upload originals and visual review artifacts locally.
+/assets/
+/docs/screenshots/
