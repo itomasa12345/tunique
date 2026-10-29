@@ -2236,3 +2236,33 @@ textarea::placeholder {
     font-size: 26px;
   }
 }
+
+.road-riding-scenes {
+  margin-top: 65px;
+}
+.road-riding-scenes > h3 {
+  margin-top: 20px;
+  font-size: 25px;
+}
+.road-riding-scenes > p {
+  margin-top: 18px;
+  font-size: 12px;
+}
+.discipline-gallery-landscape img {
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.discipline-gallery-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 760px) {
+  .road-riding-scenes {
+    margin-top: 45px;
+  }
+  .road-riding-scenes > h3 {
+    font-size: 22px;
+  }
+  .discipline-gallery-three {
+    grid-template-columns: 1fr;
+  }
+}

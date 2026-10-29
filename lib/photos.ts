@@ -117,3 +117,28 @@ export const profilePhoto = {
   height: 853,
   alt: "ロードバイクのハンドル周辺を調整するTUNIQUE代表・伊藤雅和",
 };
+
+export const roadRidingPhotos = [
+  {
+    src: "/images/road/coastal-cycling.jpg",
+    width: 1280,
+    height: 960,
+    alt: "青いサイクルウェアでロードバイクとともに海を眺めるサイクリスト",
+    caption: "自分のペースで、走る時間を楽しむために。",
+  },
+  {
+    src: "/images/road/road-riding.jpg",
+    width: 1280,
+    height: 853,
+    alt: "青いサイクルウェアでロードバイクに乗り、屋外の道路を走るサイクリスト",
+    caption: "目指す走りに合わせて、身体と自転車を整える。",
+  },
+];
+
+export const requestedKeirinPhoto = {
+  src: "/images/keirin/position-orange-bike.jpg",
+  width: 719,
+  height: 1280,
+  alt: "ローラー台に固定したオレンジ色の競輪自転車で乗車姿勢を確認する様子",
+  caption: "進みの軽さと、選手自身の感覚を確かめる。",
+};

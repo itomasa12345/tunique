@@ -5,6 +5,8 @@ import {
   additionalKeirinPhotos,
   roadDetailPhoto,
   roadDetailPhotos,
+  roadRidingPhotos,
+  requestedKeirinPhoto,
 } from "@/lib/photos";
 import {
   roadPrinciples,
@@ -127,6 +129,20 @@ export default function Bike() {
           photos={roadDetailPhotos}
           label="ROAD BIKE / DETAILS & DIALOGUE"
         />
+        <div className="road-riding-scenes">
+          <Label>ROAD BIKE / YOUR OWN RIDE</Label>
+          <h3>走る楽しみも、目指す走りも。</h3>
+          <p>
+            速さを求める日も、自分のペースで楽しむ日も。
+            <br />
+            一人ひとりの目的に合わせて、ポジションを考えます。
+          </p>
+          <FittingGallery
+            photos={roadRidingPhotos}
+            label="ROAD BIKE / ON THE ROAD"
+            landscape
+          />
+        </div>
         <div className="discipline-process">
           <Label>HOW IT WORKS / ROAD BIKE</Label>
           <h3>ロードバイクフィッティングの流れ</h3>
@@ -194,7 +210,11 @@ export default function Bike() {
             </div>
           </div>
           <FittingGallery
-            photos={[keirinPhotos.blueBike, keirinPhotos.redBike]}
+            photos={[
+              keirinPhotos.blueBike,
+              keirinPhotos.redBike,
+              requestedKeirinPhoto,
+            ]}
             label="KEIRIN / PEDALING & FEELING"
             portrait
           />

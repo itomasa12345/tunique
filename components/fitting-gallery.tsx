@@ -10,14 +10,16 @@ export function FittingGallery({
   photos,
   label,
   portrait = false,
+  landscape = false,
 }: {
   photos: Photo[];
   label: string;
   portrait?: boolean;
+  landscape?: boolean;
 }) {
   return (
     <div
-      className={`discipline-gallery ${portrait ? "discipline-gallery-portrait" : ""}`}
+      className={`discipline-gallery ${portrait ? "discipline-gallery-portrait" : ""} ${landscape ? "discipline-gallery-landscape" : ""} ${photos.length === 3 ? "discipline-gallery-three" : ""}`}
     >
       {photos.map((photo) => (
         <figure key={photo.src}>
