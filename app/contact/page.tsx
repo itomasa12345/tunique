@@ -1,10 +1,13 @@
+import { contactFormEnabled } from "@/lib/contact";
 import { PageHero } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
 import { metadata } from "@/lib/site";
 export const generateMetadata = () =>
   metadata(
     "お問い合わせ",
-    "バイクフィッティングの予約・相談、全国出張の依頼、ライフプラン相談の窓口。現在、フォームからの送信受付は準備中です。",
+    contactFormEnabled
+      ? "バイクフィッティングの予約・相談、全国出張の依頼、ライフプラン相談のお問い合わせ窓口。"
+      : "バイクフィッティングの予約・相談、全国出張の依頼、ライフプラン相談の窓口。現在、フォームからの送信受付は準備中です。",
   );
 export default async function Contact({
   searchParams,
@@ -35,12 +38,15 @@ export default async function Contact({
             気軽にご相談ください。
           </p>
           <span className="small">
-            現在は確認用のサイトです。
-            <br />
-            正式な受付開始は準備中です。
+            {contactFormEnabled
+              ? "ご返信はメールでご案内します。迷惑メールフォルダもご確認ください。"
+              : "現在は受付設定を確認中です。正式な受付開始は準備中です。"}
           </span>
         </div>
-        <ContactForm initialType={params.type || "bike"} />
+        <ContactForm
+          initialType={params.type || "bike"}
+          enabled={contactFormEnabled}
+        />
       </section>
     </>
   );

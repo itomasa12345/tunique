@@ -1,20 +1,33 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { contactFormName } from "@/lib/contact";
 const options = [
   ["bike", "バイクフィッティングの予約・相談"],
   ["travel", "全国出張フィッティングの依頼"],
   ["life", "ライフプラン相談"],
 ];
-export function ContactForm({ initialType }: { initialType: string }) {
+export function ContactForm({
+  initialType,
+  enabled = false,
+}: {
+  initialType: string;
+  enabled?: boolean;
+}) {
   const [type, setType] = useState(
     options.some((x) => x[0] === initialType) ? initialType : "bike",
   );
   const [checked, setChecked] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState("");
-  function validate(event: React.FormEvent<HTMLFormElement>) {
+  const [hydrated, setHydrated] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const requestPending = useRef(false);
+  useEffect(() => setHydrated(true), []);
+  async function validate(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (requestPending.current || sent) return;
     const data = new FormData(event.currentTarget);
     const next: Record<string, string> = {};
     if (!String(data.get("name") || "").trim())
@@ -28,11 +41,52 @@ export function ContactForm({ initialType }: { initialType: string }) {
       next.message = "お問い合わせ内容を入力してください。";
     if (!checked) next.consent = "プライバシーポリシーの確認・同意が必要です。";
     setErrors(next);
-    setStatus(
-      Object.keys(next).length
-        ? "入力内容を確認してください。"
-        : "入力項目を確認しました。送信先未設定のため、送信・保存は行っていません。",
-    );
+    if (Object.keys(next).length) {
+      setStatus("入力内容を確認してください。");
+      return;
+    }
+    if (!enabled) {
+      setStatus(
+        "入力項目を確認しました。受付設定の確認中のため、送信・保存は行っていません。",
+      );
+      return;
+    }
+    const body = new URLSearchParams({
+      "form-name": contactFormName,
+      "bot-field": String(data.get("bot-field") || ""),
+      name: String(data.get("name") || "").trim(),
+      email,
+      type: options.find(([value]) => value === type)![1],
+      region: String(data.get("region") || "").trim(),
+      message: String(data.get("message") || "").trim(),
+      consent: "プライバシーポリシーに同意しました",
+    });
+    requestPending.current = true;
+    setSending(true);
+    setStatus("送信しています…");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
+    try {
+      const response = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error("Submission failed");
+      setSent(true);
+      setStatus(
+        "お問い合わせを受け付けました。ご入力のメールアドレスへの返信をお待ちください。",
+      );
+    } catch {
+      setStatus(
+        "送信結果を確認できませんでした。入力内容はこの画面に残っています。時間をおいてから再度お試しください。",
+      );
+    } finally {
+      clearTimeout(timeout);
+      requestPending.current = false;
+      setSending(false);
+    }
   }
   const error = (key: string) =>
     errors[key] ? (
@@ -41,17 +95,49 @@ export function ContactForm({ initialType }: { initialType: string }) {
       </span>
     ) : null;
   return (
-    <form className="contact-form" onSubmit={validate} noValidate>
+    <form
+      className="contact-form"
+      name={enabled ? contactFormName : undefined}
+      method="POST"
+      action={enabled ? "/__forms.html" : undefined}
+      onSubmit={validate}
+      noValidate
+      aria-busy={sending}
+    >
+      {enabled && (
+        <input type="hidden" name="form-name" value={contactFormName} />
+      )}
+      <div className="form-honeypot" aria-hidden="true">
+        <label htmlFor="bot-field">
+          入力しないでください
+          <input
+            id="bot-field"
+            name="bot-field"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </label>
+      </div>
+      <noscript>
+        <p>このフォームの入力確認・送信にはJavaScriptを有効にしてください。</p>
+      </noscript>
       <div className="form-status">
         <span className="status-dot" />
         <div>
-          <strong>お問い合わせ受付は準備中です</strong>
+          <strong>
+            {enabled
+              ? "お問い合わせ内容をお送りください"
+              : "お問い合わせ受付は準備中です"}
+          </strong>
           <p>
-            送信先と個人情報の管理方法が未設定のため、このフォームからの送信・保存はできません。入力項目の確認のみお試しいただけます。
+            {enabled
+              ? "内容はNetlify Formsに保存され、TUNIQUEの受付メールに通知されます。返信はメールでご案内します。"
+              : "受付設定の確認中のため、このフォームからの送信・保存はできません。入力項目の確認のみお試しいただけます。"}
           </p>
         </div>
       </div>
-      <fieldset>
+      <fieldset disabled={sending || sent}>
         <legend>
           お問い合わせ種別 <span className="required">必須</span>
         </legend>
@@ -81,6 +167,7 @@ export function ContactForm({ initialType }: { initialType: string }) {
             お名前 <span className="required">必須</span>
           </label>
           <input
+            disabled={sending || sent}
             id="name"
             name="name"
             autoComplete="name"
@@ -97,6 +184,7 @@ export function ContactForm({ initialType }: { initialType: string }) {
             メールアドレス <span className="required">必須</span>
           </label>
           <input
+            disabled={sending || sent}
             id="email"
             type="email"
             name="email"
@@ -118,6 +206,7 @@ export function ContactForm({ initialType }: { initialType: string }) {
           </span>
         </label>
         <input
+          disabled={sending || sent}
           id="region"
           name="region"
           required={type === "travel"}
@@ -133,6 +222,7 @@ export function ContactForm({ initialType }: { initialType: string }) {
           お問い合わせ内容 <span className="required">必須</span>
         </label>
         <textarea
+          disabled={sending || sent}
           id="message"
           name="message"
           required
@@ -150,19 +240,36 @@ export function ContactForm({ initialType }: { initialType: string }) {
       <label className="consent">
         <input
           type="checkbox"
+          name="consent"
+          disabled={sending || sent}
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
           required
           aria-describedby={errors.consent ? "consent-error" : undefined}
         />
         <span>
-          <Link href="/privacy">プライバシーポリシー（公開前確認用）</Link>
+          <Link href="/privacy">
+            {enabled
+              ? "プライバシーポリシー"
+              : "プライバシーポリシー（公開前確認用）"}
+          </Link>
           を確認し、同意します。
         </span>
       </label>
       {error("consent")}
-      <button type="submit" className="button validate-button">
-        入力項目を確認する（送信されません）<span aria-hidden="true">↗</span>
+      <button
+        type="submit"
+        className="button validate-button"
+        disabled={!hydrated || sending || sent}
+      >
+        {sending
+          ? "送信中…"
+          : sent
+            ? "送信済み"
+            : enabled
+              ? "お問い合わせを送信する"
+              : "入力項目を確認する（送信されません）"}
+        <span aria-hidden="true">↗</span>
       </button>
       <p
         className={Object.keys(errors).length ? "field-error" : "form-result"}
