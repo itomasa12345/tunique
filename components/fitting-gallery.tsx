@@ -5,6 +5,8 @@ type Photo = {
   width: number;
   height: number;
   caption: string;
+  fit?: "contain" | "cover";
+  objectPosition?: string;
 };
 export function FittingGallery({
   photos,
@@ -29,6 +31,11 @@ export function FittingGallery({
             width={photo.width}
             height={photo.height}
             sizes="(max-width: 760px) 100vw, 50vw"
+            style={
+              photo.fit
+                ? { objectFit: photo.fit, objectPosition: photo.objectPosition }
+                : undefined
+            }
           />
           <figcaption>
             <span>{label}</span>

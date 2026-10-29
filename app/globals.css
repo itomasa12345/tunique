@@ -2343,3 +2343,42 @@ textarea::placeholder {
     margin-top: 30px;
   }
 }
+
+.about-philosophy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 75px;
+  align-items: start;
+}
+.about-philosophy-heading h2 {
+  margin-top: 30px;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.65;
+}
+.about-philosophy-copy {
+  padding-top: 45px;
+}
+.about-philosophy-copy p {
+  font-size: 13px;
+}
+@media (max-width: 1050px) {
+  .about-philosophy {
+    gap: 40px;
+  }
+}
+@media (max-width: 760px) {
+  .about-philosophy {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .about-philosophy-heading h2 {
+    margin-top: 22px;
+    font-size: 29px;
+  }
+  .about-philosophy-copy {
+    padding-top: 0;
+  }
+  .about-philosophy-copy p {
+    font-size: 12px;
+  }
+}

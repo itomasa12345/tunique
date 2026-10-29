@@ -52,14 +52,18 @@ export default function About() {
         </div>
       </section>
       <section className="soft-section">
-        <div className="wrap section split">
-          <Label>MY PHILOSOPHY</Label>
-          <div className="prose wide">
+        <div className="wrap section about-philosophy">
+          <div className="about-philosophy-heading">
+            <Label>MY PHILOSOPHY</Label>
             <h2>
               同じ方法が、
               <br />
-              同じ答えになるとは限らない。
+              同じ答えになるとは
+              <br />
+              限らない。
             </h2>
+          </div>
+          <div className="prose about-philosophy-copy">
             <p>
               競技生活の中では、同じ機材を使い、同じトレーニングをしても、人によって結果や感覚が違うことを経験してきました。
             </p>

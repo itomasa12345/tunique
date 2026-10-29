@@ -136,9 +136,11 @@ export const roadRidingPhotos = [
 ];
 
 export const requestedKeirinPhoto = {
-  src: "/images/keirin/position-orange-bike.jpg",
-  width: 719,
+  src: "/images/keirin/position-orange-bike-cropped.jpg",
+  width: 899,
   height: 1280,
+  fit: "cover" as const,
+  objectPosition: "42% 50%",
   alt: "ローラー台に固定したオレンジ色の競輪自転車で乗車姿勢を確認する様子",
   caption: "進みの軽さと、選手自身の感覚を確かめる。",
 };
