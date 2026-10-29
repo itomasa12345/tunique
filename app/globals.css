@@ -2266,3 +2266,80 @@ textarea::placeholder {
     grid-template-columns: 1fr;
   }
 }
+
+.life-concept {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  background: #deddd3;
+}
+.life-concept > img {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+.life-concept-documents > img {
+  left: 0;
+}
+.life-concept-plant > img {
+  right: 0;
+}
+.life-concept-caption {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 5px 9px;
+  background: #f5f4f0e8;
+  color: #55554e;
+  font-size: 9px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+.life-service-photo {
+  min-height: 450px;
+}
+.life-statement > .life-statement-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+.life-statement .life-statement-copy h2 {
+  font-size: clamp(30px, 3.5vw, 45px);
+}
+.life-statement-photo {
+  min-height: 410px;
+}
+.life-concerns-photo {
+  height: 300px;
+  margin-top: 35px;
+}
+@media (max-width: 1050px) {
+  .life-statement > .life-statement-grid {
+    gap: 35px;
+  }
+  .life-statement-photo {
+    min-height: 360px;
+  }
+}
+@media (max-width: 760px) {
+  .life-service-photo {
+    min-height: 300px;
+    order: 1;
+  }
+  .life-statement > .life-statement-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .life-statement-photo {
+    min-height: 340px;
+  }
+  .life-concerns-photo {
+    height: 290px;
+    margin-top: 30px;
+  }
+}

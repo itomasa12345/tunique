@@ -1,3 +1,4 @@
+import { LifeConceptImage } from "@/components/life-concept-image";
 import Image from "next/image";
 import { roadFittingPhoto, homeHeroPhoto, profilePhoto } from "@/lib/photos";
 import Link from "next/link";
@@ -174,16 +175,7 @@ export default function Home() {
               ライフプラン相談を知る <span>↗</span>
             </span>
           </div>
-          <div className="life-art" aria-hidden="true">
-            <div className="life-orbit orbit-one" />
-            <div className="life-orbit orbit-two" />
-            <div className="life-orbit orbit-three" />
-            <span>
-              YOUR LIFE.
-              <br />
-              YOUR PACE.
-            </span>
-          </div>
+          <LifeConceptImage scene="documents" className="life-service-photo" />
         </Link>
       </section>
       <section className="about-preview wrap section">

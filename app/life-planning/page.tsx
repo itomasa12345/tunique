@@ -1,3 +1,4 @@
+import { LifeConceptImage } from "@/components/life-concept-image";
 import { PageHero, Label, ContactBand, FAQ, Steps } from "@/components/ui";
 import { lifeFaq, metadata } from "@/lib/site";
 export const generateMetadata = () =>
@@ -50,20 +51,21 @@ export default function Life() {
         text="決めつけず、急がず。あなたの暮らしと、これからの希望を聞くところから。"
       />
       <section className="life-statement">
-        <div className="wrap">
-          <Label>YOUR LIFE. YOUR PACE.</Label>
-          <h2>
-            未来は、
-            <br />
-            ひとつに決めなくていい。
-          </h2>
-          <p>
-            大切にしたいことが変われば、計画も変えていく。
-            <br />
-            そのときのあなたに合った選択を、一緒に考えます。
-          </p>
-          <div className="life-orbit orbit-one" aria-hidden="true" />
-          <div className="life-orbit orbit-two" aria-hidden="true" />
+        <div className="wrap life-statement-grid">
+          <div className="life-statement-copy">
+            <Label>YOUR LIFE. YOUR PACE.</Label>
+            <h2>
+              未来は、
+              <br />
+              ひとつに決めなくていい。
+            </h2>
+            <p>
+              大切にしたいことが変われば、計画も変えていく。
+              <br />
+              そのときのあなたに合った選択を、一緒に考えます。
+            </p>
+          </div>
+          <LifeConceptImage scene="plant" className="life-statement-photo" />
         </div>
       </section>
       <section className="wrap section split">
@@ -74,6 +76,7 @@ export default function Life() {
             <br />
             考えられる形に。
           </h2>
+          <LifeConceptImage scene="documents" className="life-concerns-photo" />
         </div>
         <div className="concerns">
           <p>
