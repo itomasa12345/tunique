@@ -71,7 +71,7 @@ Turbopackのローカルポート生成がこの環境の制約に当たるた�
 npm test
 ```
 
-Playwrightが本番サーバーを起動して、PC（1440px）・スマートフォン（390px）各6件を実行します。事前の本番ビルドが必要です。
+Playwrightが本番サーバーを起動して、PC（1440px）・スマートフォン（390px）各8件を実行します。事前の本番ビルドが必要です。
 この環境にある `/usr/bin/chromium` を使用します。他の環境では `CHROMIUM_PATH` に実行ファイルのパスを指定してください。
 検証対象はページ応答、横スクロール、JSエラー、メニュー、サービス別問い合わせ導線、FAQ、フォーム検証、未送信・未保存、OGP、404です。
 
@@ -91,3 +91,8 @@ Vercelログイン・プロジェクト接続・プレビューURL発行は未�
 
 現在の案内先はNetlifyの無料プランです。設定は [Netlifyガイド](docs/NETLIFY.md) を参照してください。
 `netlify.toml` でNode.js 24、ビルド `npm run build`、公開ディレクトリ `.next` を指定しています。配信元は `site/tunique-preview` ブランチです。
+
+## ロードバイクと競輪の説明
+
+`/bike-fitting#road` と `/bike-fitting#keirin` に、方針・調整内容・流れを分けています。
+共通のデータは `lib/fitting.ts`、受領資料との対応は `docs/FITTING-CONTENT-REVIEW.md` で確認できます。

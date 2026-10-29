@@ -35,7 +35,7 @@ export default async function Contact({
             気軽にご相談ください。
           </p>
           <span className="small">
-            現在はローカル確認用のサイトです。
+            現在は確認用のサイトです。
             <br />
             正式な受付開始は準備中です。
           </span>

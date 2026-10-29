@@ -26,7 +26,7 @@ test("all pages render without overflow, runtime errors, or broken internal link
     const links = await page
       .locator('a[href^="/"]')
       .evaluateAll((nodes) => [
-        ...new Set(nodes.map((n) => n.getAttribute("href")!.split("?")[0])),
+        ...new Set(nodes.map((n) => n.getAttribute("href")!.split(/[?#]/)[0])),
       ]);
     for (const href of links) expect(pages).toContain(href);
     expect(await page.locator("body").innerText()).not.toMatch(

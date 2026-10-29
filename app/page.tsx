@@ -124,15 +124,35 @@ export default function Home() {
             </h2>
             <h3>もっと自然に、もっと自分らしく。</h3>
             <p>
-              身体の動きと踏み心地を確かめながら、
+              ロードバイクと競輪。
               <br />
-              あなたに合ったポジションを探す。
+              それぞれの目的に合わせたフィッティング。
             </p>
             <span className="text-link">
               バイクフィッティングを知る <span>↗</span>
             </span>
           </div>
         </Link>
+        <nav className="home-fitting-links" aria-label="フィッティングを選ぶ">
+          <Link href="/bike-fitting#road">
+            <span>ROAD BIKE</span>
+            <p>
+              自然な全身の動きと、
+              <br />
+              自転車全体のバランスを。
+            </p>
+            <span aria-hidden="true">↗</span>
+          </Link>
+          <Link href="/bike-fitting#keirin">
+            <span>KEIRIN</span>
+            <p>
+              進みの軽さと実戦での使いやすさを、
+              <br />
+              自分で判断するための基準に。
+            </p>
+            <span aria-hidden="true">↗</span>
+          </Link>
+        </nav>
         <Link href="/life-planning" className="service-card life-card">
           <div className="service-card-copy">
             <div className="service-card-top">

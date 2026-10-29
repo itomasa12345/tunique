@@ -1,26 +1,43 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   keirinPhotos,
   additionalKeirinPhotos,
   roadDetailPhoto,
-  roadGalleryPhotos,
   roadDetailPhotos,
 } from "@/lib/photos";
+import {
+  roadPrinciples,
+  keirinPrinciples,
+  roadAdjustments,
+  roadSteps,
+  keirinSteps,
+} from "@/lib/fitting";
 import { PageHero, Label, CTA, ContactBand, FAQ, Steps } from "@/components/ui";
+import { FittingGallery } from "@/components/fitting-gallery";
 import { bikeFaq, metadata } from "@/lib/site";
 export const generateMetadata = () =>
   metadata(
-    "バイクフィッティング",
-    "ロードバイク・競輪・一般サイクリストに対応。対面、オンライン、全国出張で、身体の動きと踏み心地を確認し、戻れる基準をつくるフィッティング。",
+    "ロードバイク・競輪のバイクフィッティング",
+    "ロードバイクは力みの少ない全身の動きと自転車のバランス。競輪は進みの軽さと競走での使いやすさを考える基準。それぞれの目的に合わせたフィッティングを紹介します。",
   );
-const adjustments = [
-  "サドルの高さ",
-  "サドルの前後位置",
-  "サン（クリート）の位置",
-  "左右の脚の入り方",
-  "身体の動きと踏み心地",
-  "自転車の進み方",
-];
+function Principles({
+  items,
+}: {
+  items: { label: string; title: string; text: string }[];
+}) {
+  return (
+    <div className="principles">
+      {items.map((item) => (
+        <article key={item.label}>
+          <span>{item.label}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
 export default function Bike() {
   return (
     <>
@@ -29,112 +46,181 @@ export default function Bike() {
         number="01"
         title={
           <>
-            感覚を研ぎ澄ます。
+            身体と自転車に、
             <br />
-            <span className="muted">自分の基準が見えてくる。</span>
+            <span className="muted">あなたの基準を。</span>
           </>
         }
-        text="自然に、軽く進む。その感覚を出発点に、あなたに合ったポジションを探します。"
+        text="ロードバイクと競輪。それぞれの目的と走り方に合わせて、身体の動きとご本人の感覚を確かめます。"
       />
-      <section className="bike-banner bike-photo-banner">
-        <Image
-          src={additionalKeirinPhotos.trackCurve.src}
-          alt={additionalKeirinPhotos.trackCurve.alt}
-          fill
-          sizes="100vw"
-        />
-        <div className="wrap">
-          <span>PRECISION MEETS FEELING.</span>
-          <p>
-            数字の先にある、
-            <br />
-            あなたの感覚へ。
-          </p>
-          <small>KEIRIN / ON THE TRACK</small>
-        </div>
-      </section>
-      <section className="wrap section split">
-        <Label>OUR APPROACH</Label>
-        <div className="prose wide">
+      <nav className="wrap fitting-choices" aria-label="フィッティングの種類">
+        <Link href="#road">
+          <span className="eyebrow">01 / ROAD BIKE</span>
           <h2>
-            小さな調整。
-            <br />
-            大切なのは、納得できること。
+            ロードバイク <span aria-hidden="true">↓</span>
           </h2>
           <p>
-            サドルやクリートを0.5mm単位で調整することもあります。でも、細かく調整すること自体が目的ではありません。
+            力みの少ない自然な動きと、
+            <br />
+            身体・自転車全体のバランスを。
           </p>
+        </Link>
+        <Link href="#keirin">
+          <span className="eyebrow">02 / KEIRIN</span>
+          <h2>
+            競輪 <span aria-hidden="true">↓</span>
+          </h2>
           <p>
-            変化を自分で感じ、納得できる位置を見つけること。身体の動きと、自転車の進み方を確かめながら、一緒に基準をつくります。
+            自転車の進みと踏みの軽さから、
+            <br />
+            選手自身が調整を判断する基準を。
           </p>
-        </div>
-      </section>
-      <section className="wrap section">
-        <Label>THREE PRINCIPLES</Label>
-        <div className="principles">
-          <article>
-            <span>01 / FEEL</span>
-            <h3>軽さだけで、決めない。</h3>
+        </Link>
+      </nav>
+      <section
+        id="road"
+        className="wrap section discipline-section"
+        aria-labelledby="road-heading"
+      >
+        <Label number="01">ROAD BIKE FITTING</Label>
+        <h2 id="road-heading" className="discipline-heading">
+          身体が自然に動く、
+          <br />
+          あなたのポジションへ。
+        </h2>
+        <div className="road-fitting-scene discipline-intro">
+          <figure>
+            <Image
+              src={roadDetailPhoto.src}
+              alt={roadDetailPhoto.alt}
+              width={roadDetailPhoto.width}
+              height={roadDetailPhoto.height}
+              sizes="(max-width: 760px) 100vw, 60vw"
+            />
+            <figcaption>{roadDetailPhoto.caption}</figcaption>
+          </figure>
+          <div className="prose">
             <p>
-              軽く進む位置が、競走で最も使いやすい位置とは限りません。競輪では固定ギアでの高回転や最大出力時の踏み心地も考慮。練習や競走で確かめながら、適切なバランスを探します。
-            </p>
-          </article>
-          <article>
-            <span>02 / STANDARD</span>
-            <h3>いつでも戻れる基準を。</h3>
-            <p>
-              一度調整して終わりではありません。うまくいかなかったときに戻れる基準をつくり、その後も自分自身で判断できることを大切にします。
-            </p>
-          </article>
-          <article>
-            <span>03 / BALANCE</span>
-            <h3>左右の動きに、目を向ける。</h3>
-            <p>
-              左右の脚ができるだけ同じ位置から踏める状態を探します。身体の使いやすさや、違和感・張りの左右差も確認します。
-            </p>
-          </article>
-        </div>
-      </section>
-      <section className="soft-section">
-        <div className="wrap section split">
-          <div>
-            <Label>FITTING DETAILS</Label>
-            <h2>
-              身体と自転車の、
+              速く走りたい方も、快適に走りたい方も。
               <br />
-              接点を整える。
-            </h2>
+              目指す走りは、一人ひとり違います。
+            </p>
+            <p>
+              TUNIQUEのロードバイクフィッティングでは、力みの少ない、自然に身体を動かせる位置を探します。
+            </p>
+            <p>
+              数値だけを合わせるのではなく、身体の全身運動と自転車全体のバランスを見ながら、その人に合ったポジションを整えます。
+            </p>
           </div>
-          <ol className="detail-list">
-            {adjustments.map((a, i) => (
-              <li key={a}>
-                <span>0{i + 1}</span>
-                {a}
-                <span aria-hidden="true">＋</span>
-              </li>
+        </div>
+        <Principles items={roadPrinciples} />
+        <div className="discipline-details">
+          <Label>FITTING DETAILS / ROAD BIKE</Label>
+          <h3>ひとつずつ、全体との関係を見ながら。</h3>
+          <ul className="adjustment-tags">
+            {roadAdjustments.map((item) => (
+              <li key={item}>{item}</li>
             ))}
-          </ol>
+          </ul>
+        </div>
+        <FittingGallery
+          photos={roadDetailPhotos}
+          label="ROAD BIKE / DETAILS & DIALOGUE"
+        />
+        <div className="discipline-process">
+          <Label>HOW IT WORKS / ROAD BIKE</Label>
+          <h3>ロードバイクフィッティングの流れ</h3>
+          <Steps items={roadSteps} />
+        </div>
+        <div className="discipline-action">
+          <p>
+            今のポジションを選ぶ理由を知ることが、
+            <br />
+            これからの走りを考える新しい基準になります。
+          </p>
+          <CTA href="/contact?type=bike">ロードバイクの相談</CTA>
+        </div>
+      </section>
+      <section
+        id="keirin"
+        className="soft-section discipline-section"
+        aria-labelledby="keirin-heading"
+      >
+        <div className="wrap section">
+          <Label number="02">KEIRIN BIKE FITTING</Label>
+          <h2 id="keirin-heading" className="discipline-heading">
+            競輪のポジションに、
+            <br />
+            自分で判断するための基準を。
+          </h2>
+          <p className="discipline-lead">
+            自転車の進み、踏みの軽さ、選手自身の感覚を大切に。
+            <br />
+            実際のペダリングを確認しながら、その選手に合う基準位置を探します。
+          </p>
+          <Principles items={keirinPrinciples} />
+        </div>
+        <div className="bike-banner bike-photo-banner keirin-banner">
+          <Image
+            src={additionalKeirinPhotos.trackCurve.src}
+            alt={additionalKeirinPhotos.trackCurve.alt}
+            fill
+            sizes="100vw"
+          />
+          <div className="wrap">
+            <span>KEIRIN / FROM FITTING TO RACING</span>
+            <p>
+              進みの軽さと、
+              <br />
+              競走での使いやすさ。
+            </p>
+            <small>基準から、自分に合うバランスへ。</small>
+          </div>
+        </div>
+        <div className="wrap section">
+          <div className="split">
+            <Label>FROM STANDARD TO YOUR POSITION</Label>
+            <div className="prose wide">
+              <h3>基準位置が、競走での唯一の正解とは限りません。</h3>
+              <p>
+                脚が自然に落ち、自転車が軽く進む位置。その位置をそのまま使う選手も、自分で調整する選手もいます。
+              </p>
+              <p>
+                高回転や限界まで踏み込む場面では、サドルを少し下げ、踏み心地が重くなっても、その方が使いやすい選手もいます。
+              </p>
+              <p>
+                見つけた位置を基準に、練習や競走で確かめながら調整する。自転車の進みの良さと実戦での使いやすさ、そのバランスを自分で判断できることを大切にしています。
+              </p>
+            </div>
+          </div>
+          <FittingGallery
+            photos={[keirinPhotos.blueBike, keirinPhotos.redBike]}
+            label="KEIRIN / PEDALING & FEELING"
+            portrait
+          />
+          <div className="discipline-process">
+            <Label>HOW IT WORKS / KEIRIN</Label>
+            <h3>基準をつくり、実戦で確かめる。</h3>
+            <Steps items={keirinSteps} />
+          </div>
+          <div className="discipline-action">
+            <p>
+              迷ったときに、戻れる位置がある。
+              <br />
+              選手自身が判断し、調整するための指標を。
+            </p>
+            <CTA href="/contact?type=bike">競輪フィッティングの相談</CTA>
+          </div>
         </div>
       </section>
       <section className="wrap section">
         <div className="section-heading">
-          <Label>FOR EVERY RIDER</Label>
+          <Label>WAYS TO FIT</Label>
           <h2>
-            競技も、楽しみ方も。
+            あなたに合う方法で、
             <br />
-            あなたに合わせて。
+            ご相談ください。
           </h2>
-        </div>
-        <div className="audience">
-          <span>
-            ROAD BIKE<small>ロードバイク</small>
-          </span>
-          <span>
-            KEIRIN<small>競輪選手</small>
-          </span>
-          <span>
-            CYCLING<small>一般サイクリスト</small>
-          </span>
         </div>
         <div className="three-columns">
           <article>
@@ -144,7 +230,7 @@ export default function Bike() {
           <article>
             <h3>オンラインフィッティング</h3>
             <p>
-              離れた場所からも相談できる方法です。撮影などの準備は個別にご案内します。
+              離れた場所からもご相談いただけます。相談内容や確認したい動きに合わせ、撮影方法などを個別にご案内します。
             </p>
           </article>
           <article>
@@ -154,147 +240,6 @@ export default function Bike() {
             </p>
           </article>
         </div>
-      </section>
-      <section className="wrap section road-fitting-scene">
-        <figure>
-          <Image
-            src={roadDetailPhoto.src}
-            alt={roadDetailPhoto.alt}
-            width={roadDetailPhoto.width}
-            height={roadDetailPhoto.height}
-            sizes="(max-width: 760px) 100vw, 60vw"
-          />
-          <figcaption>{roadDetailPhoto.caption}</figcaption>
-        </figure>
-        <div>
-          <Label>ROAD BIKE / FITTING SCENE</Label>
-          <h2>
-            細部を整え、
-            <br />
-            感覚を確かめる。
-          </h2>
-          <p>
-            ロードバイクでも、競輪自転車でも。
-            <br />
-            大切なのは、乗る人に合っていること。
-          </p>
-          <p>
-            自転車との接点を見直しながら、
-            <br />
-            身体の動きと、使いやすさを確かめます。
-          </p>
-        </div>
-      </section>
-      <section className="wrap road-gallery-section">
-        <div className="section-heading">
-          <Label>ROAD BIKE / DETAILS & DIALOGUE</Label>
-          <p>接点を確かめ、動きを見て、感覚を聞く。</p>
-        </div>
-        <div className="fitting-gallery road-gallery">
-          {roadGalleryPhotos.map((photo, i) => (
-            <figure key={photo.src}>
-              <div className="fitting-photo-frame">
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  sizes="(max-width: 760px) 100vw, 33vw"
-                />
-              </div>
-              <figcaption>
-                <span>0{i + 1} / ROAD BIKE FITTING</span>
-                {photo.caption}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-        <div className="fitting-gallery road-detail-gallery">
-          {roadDetailPhotos.map((photo) => (
-            <figure key={photo.src}>
-              <div className="fitting-photo-frame">
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  sizes="(max-width: 760px) 100vw, 50vw"
-                />
-              </div>
-              <figcaption>
-                <span>ROAD BIKE / A CLOSER LOOK</span>
-                {photo.caption}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-      <section className="soft-section">
-        <div className="wrap section">
-          <div className="section-heading">
-            <Label>KEIRIN / FITTING SCENES</Label>
-            <div>
-              <h2>
-                実際の動きから、
-                <br />
-                見えてくること。
-              </h2>
-              <p className="fitting-gallery-intro">
-                競輪自転車での乗車姿勢を、横から確認。
-                <br />
-                身体の動きと踏み心地を、一緒に確かめていきます。
-              </p>
-            </div>
-          </div>
-          <div className="fitting-gallery">
-            {[
-              keirinPhotos.blueBike,
-              keirinPhotos.redBike,
-              additionalKeirinPhotos.whiteJersey,
-              additionalKeirinPhotos.shortSleeve,
-            ].map((photo, i) => (
-              <figure key={photo.src}>
-                <div className="fitting-photo-frame">
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    width={photo.width}
-                    height={photo.height}
-                    sizes="(max-width: 760px) 100vw, 50vw"
-                  />
-                </div>
-                <figcaption>
-                  <span>0{i + 1} / KEIRIN FITTING</span>
-                  {photo.caption}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="wrap section">
-        <Label>HOW IT WORKS</Label>
-        <h2>フィッティングの流れ</h2>
-        <Steps
-          items={[
-            {
-              title: "相談する",
-              text: "乗り方や悩み、ご希望の実施方法をお聞かせください。",
-            },
-            {
-              title: "今の状態を知る",
-              text: "現在のポジションと身体の動き、踏み心地を確認します。",
-            },
-            {
-              title: "調整し、確かめる",
-              text: "小さな調整を重ね、感覚の変化を一緒に確かめます。",
-            },
-            {
-              title: "自分の基準にする",
-              text: "戻れる位置を共有し、練習や実走での判断につなげます。",
-            },
-          ]}
-        />
       </section>
       <section className="wrap section split">
         <div>
