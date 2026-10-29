@@ -1,6 +1,7 @@
 import { resolveSiteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand-logo";
 import { Header } from "@/components/header";
 import { navigation } from "@/lib/site";
 import "./globals.css";
@@ -24,9 +25,8 @@ export default function RootLayout({
         <main id="main">{children}</main>
         <footer className="footer wrap">
           <div className="footer-top">
-            <Link className="wordmark" href="/">
-              TUNIQUE
-              <span className="brand-dot" />
+            <Link className="wordmark" href="/" aria-label="TUNIQUE ホーム">
+              <BrandLogo />
             </Link>
             <p>一人ひとりに、その人の基準を。</p>
             <nav aria-label="フッターナビゲーション">

@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand-logo";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { navigation } from "@/lib/site";
@@ -28,8 +29,7 @@ export function Header() {
         onClick={() => setOpen(false)}
         aria-label="TUNIQUE ホーム"
       >
-        TUNIQUE
-        <span className="brand-dot" />
+        <BrandLogo />
       </Link>
       <nav className="desktop-nav" aria-label="メインナビゲーション">
         {navigation.map((x) => (

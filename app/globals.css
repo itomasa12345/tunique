@@ -2398,3 +2398,31 @@ textarea::placeholder {
 .privacy-date {
   margin-top: 40px;
 }
+
+/* The supplied white logo is displayed unchanged on a black ground. */
+.brand-logo {
+  display: block;
+  width: 142px;
+  height: 71px;
+  background: #000;
+  overflow: hidden;
+}
+.brand-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.footer-top .wordmark {
+  justify-self: start;
+}
+.footer .brand-logo {
+  width: 180px;
+  height: 90px;
+}
+@media (max-width: 760px) {
+  .header .brand-logo {
+    width: 118px;
+    height: 59px;
+  }
+}
