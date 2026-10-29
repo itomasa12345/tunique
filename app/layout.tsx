@@ -8,6 +8,9 @@ import { navigation } from "@/lib/site";
 import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: resolveSiteUrl(),
+  verification: {
+    google: "N-Gt1TmMLpeUefvgdRONlX7nEOlMTl8ROvlyDU93Zr8",
+  },
   title: { default: "TUNIQUE | TUNE YOUR UNIQUE", template: "%s | TUNIQUE" },
   description:
     "一人ひとりの違いを尊重し、あなたに合った基準を見つける。伊藤雅和によるバイクフィッティングとライフプラン相談。",
