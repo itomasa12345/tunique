@@ -4,6 +4,7 @@ export const site = {
   tagline: "TUNE YOUR UNIQUE",
   representative: "伊藤 雅和",
   englishName: "Masakazu Ito",
+  onlineLessonUrl: "https://masakazu-itou.spo-sta.com/page/21081",
 };
 export const navigation = [
   { href: "/bike-fitting", label: "BIKE FITTING" },

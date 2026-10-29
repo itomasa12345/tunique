@@ -1,7 +1,7 @@
 import { contactFormEnabled } from "@/lib/contact";
 import { PageHero } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
-import { metadata } from "@/lib/site";
+import { metadata, site } from "@/lib/site";
 export const generateMetadata = () =>
   metadata(
     "お問い合わせ",
@@ -42,6 +42,16 @@ export default async function Contact({
               ? "ご返信はメールでご案内します。迷惑メールフォルダもご確認ください。"
               : "現在は受付設定を確認中です。正式な受付開始は準備中です。"}
           </span>
+          <p className="small">
+            <a
+              href={site.onlineLessonUrl}
+              aria-label="オンラインレッスンはこちら（外部サイト・新しいタブで開きます）"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              オンラインレッスンはこちら ↗
+            </a>
+          </p>
         </div>
         <ContactForm
           initialType={params.type || "bike"}

@@ -17,7 +17,7 @@ import {
 } from "@/lib/fitting";
 import { PageHero, Label, CTA, ContactBand, FAQ, Steps } from "@/components/ui";
 import { FittingGallery } from "@/components/fitting-gallery";
-import { bikeFaq, metadata } from "@/lib/site";
+import { bikeFaq, metadata, site } from "@/lib/site";
 export const generateMetadata = () =>
   metadata(
     "ロードバイク・競輪のバイクフィッティング",
@@ -260,6 +260,27 @@ export default function Bike() {
             </p>
           </article>
         </div>
+      </section>
+      <section
+        className="wrap note-section"
+        aria-labelledby="online-lesson-heading"
+      >
+        <div>
+          <Label>ONLINE LESSON</Label>
+          <h2 id="online-lesson-heading">オンラインレッスン</h2>
+          <p>
+            オンラインレッスンの詳細・お申し込みは、こちらからご確認いただけます。
+          </p>
+        </div>
+        <a
+          className="button"
+          href={site.onlineLessonUrl}
+          aria-label="オンラインレッスンはこちら（外部サイト・新しいタブで開きます）"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          オンラインレッスンはこちら <span aria-hidden="true">↗</span>
+        </a>
       </section>
       <section className="wrap section split">
         <div>
