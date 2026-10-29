@@ -2390,3 +2390,11 @@ textarea::placeholder {
   cursor: default;
   opacity: 0.6;
 }
+
+.legal a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.privacy-date {
+  margin-top: 40px;
+}

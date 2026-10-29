@@ -248,11 +248,7 @@ export function ContactForm({
           aria-describedby={errors.consent ? "consent-error" : undefined}
         />
         <span>
-          <Link href="/privacy">
-            {enabled
-              ? "プライバシーポリシー"
-              : "プライバシーポリシー（公開前確認用）"}
-          </Link>
+          <Link href="/privacy">プライバシーポリシー</Link>
           を確認し、同意します。
         </span>
       </label>

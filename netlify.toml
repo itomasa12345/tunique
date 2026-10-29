@@ -4,3 +4,8 @@
 
 [build.environment]
   NODE_VERSION = "24"
+
+# Forms detection, destination notification and retention policy are confirmed.
+# Enable on the connected production context for the owner's receipt test.
+[context.production.environment]
+  NEXT_PUBLIC_CONTACT_FORM_ENABLED = "true"
