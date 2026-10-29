@@ -1,3 +1,4 @@
+import { searchIndexingEnabled } from "@/lib/publication";
 import { resolveSiteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   title: { default: "TUNIQUE | TUNE YOUR UNIQUE", template: "%s | TUNIQUE" },
   description:
     "一人ひとりの違いを尊重し、あなたに合った基準を見つける。伊藤雅和によるバイクフィッティングとライフプラン相談。",
-  robots: { index: false, follow: false },
+  robots: { index: searchIndexingEnabled, follow: searchIndexingEnabled },
 };
 export default function RootLayout({
   children,
