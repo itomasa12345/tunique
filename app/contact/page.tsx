@@ -8,6 +8,7 @@ export const generateMetadata = () =>
     contactFormEnabled
       ? "バイクフィッティングの予約・相談、全国出張の依頼、ライフプラン相談のお問い合わせ窓口。"
       : "バイクフィッティングの予約・相談、全国出張の依頼、ライフプラン相談の窓口。現在、フォームからの送信受付は準備中です。",
+    "/contact",
   );
 export default async function Contact({
   searchParams,

@@ -6,6 +6,8 @@
   NODE_VERSION = "24"
 
 # Forms detection, destination notification and retention policy are confirmed.
-# Enable on the connected production context for the owner's receipt test.
+# Production publication approved by the owner on 2026-10-29.
 [context.production.environment]
   NEXT_PUBLIC_CONTACT_FORM_ENABLED = "true"
+  SEARCH_INDEXING_ENABLED = "true"
+  SITE_URL = "https://jolly-cendol-022978.netlify.app"

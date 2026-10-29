@@ -5,6 +5,7 @@ export const generateMetadata = () =>
   metadata(
     "ライフプラン相談",
     "将来のお金のことを、今の暮らしから考える。家計、住宅ローン、教育資金、老後資金などを整理し、自分に合った判断基準をつくるライフプラン相談。",
+    "/life-planning",
   );
 const themes = [
   [

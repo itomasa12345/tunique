@@ -8,6 +8,7 @@ export const generateMetadata = () =>
   metadata(
     "TUNE YOUR UNIQUE",
     "あなたらしさに、チューニングを。元プロロードレース選手・伊藤雅和によるバイクフィッティングとライフプラン相談。",
+    "/",
   );
 export default function Home() {
   return (

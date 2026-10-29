@@ -4,6 +4,7 @@ export const generateMetadata = () =>
   metadata(
     "プライバシーポリシー",
     "TUNIQUEのお問い合わせに関する個人情報の利用目的、Netlify FormsとGmailでの取り扱い、保存期間と削除について。",
+    "/privacy",
   );
 export default function Privacy() {
   return (

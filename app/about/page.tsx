@@ -6,6 +6,7 @@ export const generateMetadata = () =>
   metadata(
     "伊藤雅和について",
     "TUNIQUE代表・伊藤雅和のプロフィール。約12年間、国内外のプロロードレースチームで活動。一人ひとりの違いを理解し、その人に合う方法をともに考えます。",
+    "/about",
   );
 export default function About() {
   return (

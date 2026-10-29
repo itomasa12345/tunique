@@ -22,6 +22,7 @@ export const generateMetadata = () =>
   metadata(
     "ロードバイク・競輪のバイクフィッティング",
     "ロードバイクは力みの少ない全身の動きと自転車のバランス。競輪は進みの軽さと競走での使いやすさを考える基準。それぞれの目的に合わせたフィッティングを紹介します。",
+    "/bike-fitting",
   );
 function Principles({
   items,

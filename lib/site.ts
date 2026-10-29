@@ -1,3 +1,4 @@
+import { resolveSiteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 export const site = {
   name: "TUNIQUE",
@@ -11,14 +12,21 @@ export const navigation = [
   { href: "/life-planning", label: "LIFE PLANNING" },
   { href: "/about", label: "ABOUT" },
 ];
-export function metadata(title: string, description: string): Metadata {
+export function metadata(
+  title: string,
+  description: string,
+  pathname: string,
+): Metadata {
+  const url = new URL(pathname, resolveSiteUrl());
   return {
     title,
     description,
+    alternates: { canonical: url },
     openGraph: {
       title: `${title} | TUNIQUE`,
       description,
       locale: "ja_JP",
+      url,
       type: "website",
       siteName: "TUNIQUE",
       images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
