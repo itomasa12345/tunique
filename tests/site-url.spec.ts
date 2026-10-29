@@ -13,3 +13,21 @@ test("metadata uses the configured origin, the preview host, or local fallback",
     }).origin,
   ).toBe("https://site.example.com");
 });
+
+test("Netlify preview metadata uses its URL and respects an explicit SITE_URL", () => {
+  expect(
+    resolveSiteUrl({
+      DEPLOY_PRIME_URL: "https://branch.example.com",
+      URL: "https://site.example.com",
+    }).origin,
+  ).toBe("https://branch.example.com");
+  expect(resolveSiteUrl({ URL: "https://site.example.com" }).origin).toBe(
+    "https://site.example.com",
+  );
+  expect(
+    resolveSiteUrl({
+      SITE_URL: "https://canonical.example.com",
+      DEPLOY_PRIME_URL: "https://branch.example.com",
+    }).origin,
+  ).toBe("https://canonical.example.com");
+});

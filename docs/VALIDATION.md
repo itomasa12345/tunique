@@ -86,3 +86,10 @@ Playwright用ブラウザのダウンロードは通信ポリシーで拒否さ�
 - ファビコン200応答、robots.txtのクロール禁止を確認。
 - PCとスマートフォンのプロフィール画面を目視確認。
 - Vercelアカウントは未作成とユーザーから回答あり。この環境にはVercel認証・プロジェクト接続がなく、外部アップロード・Preview URL発行・本番公開は未実施。
+
+## Netlify接続用の設定
+
+- `netlify.toml` にNode.js 24、`npm run build`、`.next` を指定。
+- OGP基準URLがSITE_URL、DEPLOY_PRIME_URL、URL、VERCEL_URL、ローカルの順に選ばれるよう調整。
+- 型チェック・本番ビルド成功。URL選択のローカル検証5件成功。
+- Netlify側でのアダプター適用、ビルド、画像・動的ルートの動作は実デプロイ後に確認する。現時点では未検証。

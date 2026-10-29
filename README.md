@@ -86,3 +86,8 @@ Studioでは [制作ガイド](docs/STUDIO.md) をもとに、ボックス・テ
 
 設定と接続手順は [Vercelガイド](docs/VERCEL.md) を参照してください。
 Vercelログイン・プロジェクト接続・プレビューURL発行は未実施です。正式公開は管理者の明示承認後に行います。
+
+## Netlifyでの確認用配置
+
+現在の案内先はNetlifyの無料プランです。設定は [Netlifyガイド](docs/NETLIFY.md) を参照してください。
+`netlify.toml` でNode.js 24、ビルド `npm run build`、公開ディレクトリ `.next` を指定しています。配信元は `site/tunique-preview` ブランチです。

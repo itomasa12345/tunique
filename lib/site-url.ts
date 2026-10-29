@@ -4,6 +4,8 @@ export function resolveSiteUrl(
 ): URL {
   return new URL(
     env.SITE_URL ||
+      env.DEPLOY_PRIME_URL ||
+      env.URL ||
       (env.VERCEL_URL ? `https://${env.VERCEL_URL}` : "http://localhost:3000"),
   );
 }
