@@ -10,4 +10,4 @@
 [context.production.environment]
   NEXT_PUBLIC_CONTACT_FORM_ENABLED = "true"
   SEARCH_INDEXING_ENABLED = "true"
-  SITE_URL = "https://jolly-cendol-022978.netlify.app"
+  SITE_URL = "https://tunique.jp"
