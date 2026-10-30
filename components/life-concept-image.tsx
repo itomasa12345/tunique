@@ -24,7 +24,6 @@ export function LifeConceptImage({
         height={887}
         sizes="(max-width: 760px) 200vw, 100vw"
       />
-      <span className="life-concept-caption">イメージ画像</span>
     </div>
   );
 }
