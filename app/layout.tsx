@@ -9,7 +9,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: resolveSiteUrl(),
   verification: {
-    google:[ "N-Gt1TmMLpeUefvgdRONlX7nEOlMTl8ROvlyDU93Zr8", "KlNoO0PsHi7P7XnscxcBIkhSI2rF66vfFYUHxppDnJA]"
+    google:[ "N-Gt1TmMLpeUefvgdRONlX7nEOlMTl8ROvlyDU93Zr8", "KlNoO0PsHi7P7XnscxcBIkhSI2rF66vfFYUHxppDnJA"]
   },
   title: { default: "TUNIQUE | TUNE YOUR UNIQUE", template: "%s | TUNIQUE" },
   description:
