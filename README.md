@@ -34,6 +34,7 @@ Turbopackのローカルポート生成がこの環境の制約に当たるた�
 | `/about`         | 伊藤雅和のプロフィール・考え方            |
 | `/contact`       | 5種別を選べる問い合わせフォーム           |
 | `/privacy`       | 個人情報の取り扱い・保存期間              |
+| `/columns`       | フィッティングの専門コラム一覧             |
 
 `/contact?type=road`、`?type=keirin`、`?type=bike`、`?type=travel`、`?type=life`で問い合わせ種別を引き継ぎます。
 
@@ -104,3 +105,8 @@ Netlify FormsからGmailへ通知する準備は [受付設定ガイド](docs/CO
 
 環境変数と受付有効・無効のローカル検証は [環境・テスト手順](docs/ENVIRONMENT.md) を参照してください。
 実受信確認と所属代理店の確認は [確認事項](docs/RELEASE-CHECKLIST.md) に残しています。
+
+## 専門コラム
+
+`/columns` に記事一覧、`/columns/[slug]` に記事ページを追加。
+原稿は `lib/columns.ts` で管理します。追加・下書き確認・公開の手順は [コラム運用ガイド](docs/COLUMNS.md) を参照してください。初期の記事案2本は未承認の下書きで、通常ビルドでは公開されません。

@@ -36,7 +36,11 @@ export function Header() {
           <Link
             key={x.href}
             href={x.href}
-            aria-current={path === x.href ? "page" : undefined}
+            aria-current={
+              path === x.href || path.startsWith(`${x.href}/`)
+                ? "page"
+                : undefined
+            }
           >
             {x.label}
           </Link>

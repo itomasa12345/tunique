@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { visibleColumns } from "../lib/columns";
 const pages = [
   "/",
   "/bike-fitting",
@@ -6,6 +7,7 @@ const pages = [
   "/about",
   "/contact",
   "/privacy",
+  "/columns",
 ];
 test("all pages render without overflow, runtime errors, or broken internal links", async ({
   page,
@@ -28,7 +30,11 @@ test("all pages render without overflow, runtime errors, or broken internal link
       .evaluateAll((nodes) => [
         ...new Set(nodes.map((n) => n.getAttribute("href")!.split(/[?#]/)[0])),
       ]);
-    for (const href of links) expect(pages).toContain(href);
+    for (const href of links)
+      expect([
+        ...pages,
+        ...visibleColumns().map((a) => `/columns/${a.slug}`),
+      ]).toContain(href);
     expect(await page.locator("body").innerText()).not.toMatch(
       /[¥￥]\s*[\d,]+|\d[\d,]*\s*円/,
     );

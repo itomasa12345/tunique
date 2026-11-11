@@ -11,6 +11,7 @@ export const navigation = [
   { href: "/bike-fitting", label: "BIKE FITTING" },
   { href: "/life-planning", label: "LIFE PLANNING" },
   { href: "/about", label: "ABOUT" },
+  { href: "/columns", label: "COLUMN" },
 ];
 export function metadata(
   title: string,

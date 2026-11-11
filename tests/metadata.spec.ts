@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { columns, isPublishedColumn } from "../lib/columns";
 const paths = [
   "/",
   "/bike-fitting",
@@ -6,6 +7,7 @@ const paths = [
   "/about",
   "/contact",
   "/privacy",
+  "/columns",
 ];
 const indexed = process.env.SEARCH_INDEXING_ENABLED === "true";
 const origin = process.env.SITE_URL || "http://localhost:3000";
@@ -13,6 +15,8 @@ test("all pages share search policy and render canonical metadata in initial HTM
   request,
 }) => {
   for (const path of paths) {
+    const pageIndexed =
+      indexed && (path !== "/columns" || columns.some(isPublishedColumn));
     for (const agent of ["Mozilla/5.0", "Googlebot"]) {
       const response = await request.get(path, {
         headers: { "User-Agent": agent },
@@ -21,7 +25,7 @@ test("all pages share search policy and render canonical metadata in initial HTM
       const html = await response.text();
       const head = html.split("</head>")[0];
       expect(head).toContain(
-        `name="robots" content="${indexed ? "index, follow" : "noindex, nofollow"}"`,
+        `name="robots" content="${pageIndexed ? "index, follow" : "noindex, nofollow"}"`,
       );
       expect(html).not.toContain('name="robots" content="noindex"');
       expect(head).toContain(
@@ -35,8 +39,16 @@ test("all pages share search policy and render canonical metadata in initial HTM
   const robots = await (await request.get("/robots.txt")).text();
   expect(robots).toContain(indexed ? "Allow: /" : "Disallow: /");
   const sitemap = await (await request.get("/sitemap.xml")).text();
-  expect((sitemap.match(/<loc>/g) || []).length).toBe(indexed ? 6 : 0);
+  expect((sitemap.match(/<loc>/g) || []).length).toBe(
+    indexed
+      ? 6 +
+          (columns.some(isPublishedColumn) ? 1 : 0) +
+          columns.filter(isPublishedColumn).length
+      : 0,
+  );
   if (indexed)
-    for (const path of paths)
+    for (const path of paths.filter(
+      (p) => p !== "/columns" || columns.some(isPublishedColumn),
+    ))
       expect(sitemap).toContain(`<loc>${new URL(path, origin).href}</loc>`);
 });

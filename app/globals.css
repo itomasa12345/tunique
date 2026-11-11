@@ -2426,3 +2426,33 @@ textarea::placeholder {
     height: 59px;
   }
 }
+
+/* Editorial columns */
+.column-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; margin: 40px 0; }
+.column-card { min-width: 0; }
+.column-card a { display: block; }
+.column-card-image { aspect-ratio: 16 / 10; overflow: hidden; background: var(--line); }
+.column-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.column-card a:hover img { transform: scale(1.03); }
+.column-card-meta { display: flex; flex-wrap: wrap; gap: 20px; font-size: 12px; margin: 24px 0 14px; }
+.column-card h3 { font-size: clamp(22px, 2.4vw, 32px); line-height: 1.6; margin-bottom: 16px; }
+.column-card p { line-height: 1.9; }
+.column-empty { padding: 40px 0; line-height: 2; }
+.column-empty a, .column-related a, .column-article nav a { text-decoration: underline; text-underline-offset: 4px; }
+.column-blog { padding-bottom: 100px; }
+.column-blog h2 { margin: 24px 0; }
+.column-blog p { margin-bottom: 24px; }
+.column-article { max-width: 900px; padding-top: 40px; padding-bottom: 80px; overflow-wrap: anywhere; }
+.column-article header { margin: 56px 0 40px; }
+.column-article h1 { font-size: clamp(30px, 4.5vw, 56px); line-height: 1.55; margin: 24px 0; }
+.column-article .lead { margin-top: 24px; }
+.column-hero-image img { width: 100%; height: auto; max-height: 560px; object-fit: contain; background: #e5e2da; }
+.column-toc, .column-related { border-block: 1px solid var(--line); padding: 28px 0; margin: 40px 0; }
+.column-toc h2 { font-size: 18px; margin-bottom: 16px; }
+.column-toc ol { padding-left: 24px; line-height: 2.2; }
+.column-article > section { margin: 56px 0; scroll-margin-top: 24px; }
+.column-article section h2, .column-related h2 { font-size: clamp(23px, 3vw, 30px); line-height: 1.6; margin-bottom: 24px; }
+.column-article section p { line-height: 2.2; margin-bottom: 20px; }
+.column-draft { border-left: 3px solid currentColor; padding: 16px 20px; background: #e5e2da; font-size: 14px; line-height: 1.9; }
+@media (max-width: 760px) { .column-grid { grid-template-columns: 1fr; gap: 40px; } .column-article header { margin-top: 36px; } }
+@media (prefers-reduced-motion: reduce) { .column-card-image img { transition: none; } }

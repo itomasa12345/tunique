@@ -1,3 +1,5 @@
+import { ColumnCards } from "@/components/column-cards";
+import { visibleColumns } from "@/lib/columns";
 import { LifeConceptImage } from "@/components/life-concept-image";
 import Image from "next/image";
 import { roadFittingPhoto, homeHeroPhoto, profilePhoto } from "@/lib/photos";
@@ -206,6 +208,12 @@ export default function Home() {
           </p>
           <CTA href="/about">プロフィールを見る</CTA>
         </div>
+      </section>
+      <section className="wrap section" aria-labelledby="home-column-title">
+        <Label number="04">COLUMN</Label>
+        <h2 id="home-column-title">走りを考える、読みもの。</h2>
+        <ColumnCards articles={visibleColumns().slice(0, 2)} />
+        <CTA href="/columns">コラム一覧を見る</CTA>
       </section>
       <ContactBand />
     </>
