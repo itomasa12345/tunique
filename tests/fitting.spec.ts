@@ -29,5 +29,23 @@ test("road and keirin links lead to distinct fitting explanations", async ({
   await expect(keirin).toContainText("戻れる位置");
   await expect(keirin).not.toContainText("0.25mm");
   await keirin.getByRole("link", { name: "競輪フィッティングの相談" }).click();
+  await expect(page.locator('input[value="keirin"]')).toBeChecked();
+});
+
+test("road enquiry preserves its type, and invalid types fall back safely", async ({
+  page,
+}) => {
+  await page.goto("/bike-fitting");
+  await page
+    .locator("#road")
+    .getByRole("link", { name: "ロードバイクの相談" })
+    .click();
+  await expect(page.locator('input[value="road"]')).toBeChecked();
+  await expect(
+    page.getByText(
+      "送信時点では予約は確定しません。日程・料金をご確認いただいた後に予約が確定します。",
+    ),
+  ).toBeVisible();
+  await page.goto("/contact?type=invalid");
   await expect(page.locator('input[value="bike"]')).toBeChecked();
 });

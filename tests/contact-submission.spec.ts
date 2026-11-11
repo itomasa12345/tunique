@@ -66,3 +66,22 @@ test("invalid enabled form never posts", async ({ page }) => {
   await expect(page.getByText("お名前を入力してください。")).toBeVisible();
   expect(posts).toBe(0);
 });
+
+for (const [type, label] of [
+  ["road", "ロードバイクフィッティングの予約・相談"],
+  ["keirin", "競輪フィッティングの予約・相談"],
+]) {
+  test(`${type} is included in the mocked submission`, async ({ page }) => {
+    let submitted = "";
+    await page.route("**/__forms.html", async (route) => {
+      submitted =
+        new URLSearchParams(route.request().postData() || "").get("type") || "";
+      await route.fulfill({ status: 200, body: "ok" });
+    });
+    await fill(page);
+    await page.locator(`input[value="${type}"]`).check();
+    await page.getByRole("button", { name: "お問い合わせを送信する" }).click();
+    await expect(page.getByRole("status")).toContainText("受け付けました");
+    expect(submitted).toBe(label);
+  });
+}

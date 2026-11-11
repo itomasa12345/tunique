@@ -1,3 +1,5 @@
+> 現在の配信先はNetlify、正式URLは `https://tunique.jp` です。この文書は未使用のVercel向け参考手順です。現行手順は [NETLIFY.md](NETLIFY.md) を参照してください。
+
 # Vercelで確認用プレビューを作る
 
 ## 準備した内容
@@ -5,7 +7,7 @@
 - Next.js / Node.js 24を使う構成です。
 - `vercel.json` で `npm ci`、`npm run build` を指定しています。
 - `.vercelignore` で写真の原本保管ディレクトリ、画面キャプチャ、ローカル生成物などをアップロード対象から除外します。表示に必要な選定写真は `public/` に入っています。
-- Previewでは `SITE_URL` を設定せず、Vercelが注入する `VERCEL_URL` をSNS画像の基準URLに使用します。正式なURLが決まってから `SITE_URL` を設定します。ローカルではポート3000です。
+- Previewでは `SITE_URL` を設定せず、Vercelが注入する `VERCEL_URL` をSNS画像の基準URLに使用します。本番相当の確認では `SITE_URL=https://tunique.jp` を設定します。ローカルではポート3000です。
 - 検索掲載は停止したままです。フォームは送信・保存しません。
 - ファビコンは仮のTマークです。正式なロゴ原本へ差し替える項目として残しています。
 

@@ -8,7 +8,7 @@ TUNIQUE公式サイトのローカル実装。Next.js App Router / TypeScript / 
 Node.js 24 / npmを使用します。既存のチェックアウトで実行してください。
 
 ```sh
-cd /workspace/tunique
+cd tunique
 npm ci
 npm run dev
 ```
@@ -32,10 +32,10 @@ Turbopackのローカルポート生成がこの環境の制約に当たるた�
 | `/bike-fitting`  | 方針、調整項目、対象、実施方法、流れ、FAQ |
 | `/life-planning` | 方針、悩み、相談テーマ、流れ、FAQ         |
 | `/about`         | 伊藤雅和のプロフィール・考え方            |
-| `/contact`       | 3種別を選べる問い合わせフォーム           |
+| `/contact`       | 5種別を選べる問い合わせフォーム           |
 | `/privacy`       | 個人情報の取り扱い・保存期間              |
 
-`/contact?type=bike`、`?type=travel`、`?type=life`で問い合わせ種別を引き継ぎます。
+`/contact?type=road`、`?type=keirin`、`?type=bike`、`?type=travel`、`?type=life`で問い合わせ種別を引き継ぎます。
 
 ## 現在の状態
 
@@ -43,9 +43,9 @@ Turbopackのローカルポート生成がこの環境の制約に当たるた�
 - ローカル環境は既定で入力確認のみです。Netlifyのproductionコンテキストでは送信ボタンを表示します。
 - 正式な料金、金融商品・保険代理店の広告、未確認の口コミや実績、未確定日程は掲載していません。
 - 2026-10-29に運営者が正式公開を承認しました。Netlify productionのみ検索掲載を許可し、各ページのcanonicalとサイトマップを出力します。その他の環境は既定でnoindexです。
-- 正式URLは `https://jolly-cendol-022978.netlify.app` です。productionの `SITE_URL` に設定済みです。
+- 正式URLは `https://tunique.jp` です。productionの `SITE_URL` に設定済みです。
 - 正式ロゴは支給された透過PNGを `public/brand/tunique-logo.png` に原本のまま配置しています。白色のため黒背景で表示します。
-- HOME上部は提供された実際のフィッティング写真を使用しています。ライフプランにはAI生成した資料と植物の静物イメージを使用し、イメージ画像と明示しています。ユーザー提供のロードバイク調整写真と競輪写真を、HOMEのサービス紹介とバイクフィッティングページに反映しています。プロフィールには、ご本人の確認・使用許可を得た作業写真を使用しています。素材の用途は `docs/PHOTO-ASSETS.md` を参照してください。
+- HOME上部は提供された実際のフィッティング写真を使用しています。ライフプランにはAI生成した資料と植物の静物イメージを使用し、表示上の「イメージ画像」キャプションは削除済みです。ユーザー提供のロードバイク調整写真と競輪写真を、HOMEのサービス紹介とバイクフィッティングページに反映しています。プロフィールには、ご本人の確認・使用許可を得た作業写真を使用しています。素材の用途は `docs/PHOTO-ASSETS.md` を参照してください。
 
 ## 編集箇所
 
@@ -71,7 +71,7 @@ Turbopackのローカルポート生成がこの環境の制約に当たるた�
 npm test
 ```
 
-Playwrightが本番サーバーを起動して、PC（1440px）・スマートフォン（390px）各8件を実行します。事前の本番ビルドが必要です。
+Playwrightが本番サーバーを起動して、PC（1440px）・スマートフォン（390px）で実行します。事前の本番ビルドが必要です。
 この環境にある `/usr/bin/chromium` を使用します。他の環境では `CHROMIUM_PATH` に実行ファイルのパスを指定してください。
 検証対象はページ応答、横スクロール、JSエラー、メニュー、サービス別問い合わせ導線、FAQ、フォーム検証、未送信・未保存、OGP、404です。
 
@@ -87,7 +87,7 @@ Studioでは [制作ガイド](docs/STUDIO.md) をもとに、ボックス・テ
 設定と接続手順は [Vercelガイド](docs/VERCEL.md) を参照してください。
 Vercelは使用していません。Netlifyで配信し、2026-10-29に管理者から正式公開の承認を受けました。
 
-## Netlifyでの確認用配置
+## Netlifyでの配信
 
 現在の案内先はNetlifyの無料プランです。設定は [Netlifyガイド](docs/NETLIFY.md) を参照してください。
 `netlify.toml` でNode.js 24、ビルド `npm run build`、公開ディレクトリ `.next` を指定しています。配信元は `site/tunique-preview` ブランチです。
@@ -101,3 +101,6 @@ Vercelは使用していません。Netlifyで配信し、2026-10-29に管理者
 
 Netlify FormsからGmailへ通知する準備は [受付設定ガイド](docs/CONTACT-SETUP.md) に記載しています。通知先は公開ソースへ含めません。
 `NEXT_PUBLIC_CONTACT_FORM_ENABLED` はローカルではfalseが既定です。Netlifyのproductionコンテキストではtrueに設定し、本人による送信・受信テスト待ちです。
+
+環境変数と受付有効・無効のローカル検証は [環境・テスト手順](docs/ENVIRONMENT.md) を参照してください。
+実受信確認と所属代理店の確認は [確認事項](docs/RELEASE-CHECKLIST.md) に残しています。

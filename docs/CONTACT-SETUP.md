@@ -32,11 +32,4 @@ Freeプランの利用枠と超過時の挙動は管理画面で継続確認す�
 
 ## ローカルのモックテスト
 
-```sh
-NEXT_PUBLIC_CONTACT_FORM_ENABLED=true npm run build
-CONTACT_SUBMISSION_TEST=1 npx playwright test tests/contact-submission.spec.ts
-NEXT_PUBLIC_CONTACT_FORM_ENABLED=false npm run build
-npx playwright test tests/site.spec.ts tests/site-url.spec.ts tests/fitting.spec.ts
-```
-
-外部への実送信・メール通知は行わない。通常の `npm test` では有効モード専用6件はスキップされる。
+受付有効・無効の両方の手順は [ENVIRONMENT.md](ENVIRONMENT.md) を参照。外部への実送信・メール通知は行わない。

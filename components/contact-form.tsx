@@ -4,6 +4,8 @@ import Link from "next/link";
 import { contactFormName } from "@/lib/contact";
 const options = [
   ["bike", "バイクフィッティングの予約・相談"],
+  ["road", "ロードバイクフィッティングの予約・相談"],
+  ["keirin", "競輪フィッティングの予約・相談"],
   ["travel", "全国出張フィッティングの依頼"],
   ["life", "ライフプラン相談"],
 ];
@@ -137,6 +139,9 @@ export function ContactForm({
           </p>
         </div>
       </div>
+      <p className="small">
+        送信時点では予約は確定しません。日程・料金をご確認いただいた後に予約が確定します。
+      </p>
       <fieldset disabled={sending || sent}>
         <legend>
           お問い合わせ種別 <span className="required">必須</span>

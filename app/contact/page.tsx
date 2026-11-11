@@ -1,5 +1,7 @@
 import { contactFormEnabled } from "@/lib/contact";
 import { PageHero } from "@/components/ui";
+import { ContactFormFromQuery } from "@/components/contact-form-from-query";
+import { Suspense } from "react";
 import { ContactForm } from "@/components/contact-form";
 import { metadata, site } from "@/lib/site";
 export const generateMetadata = () =>
@@ -10,12 +12,7 @@ export const generateMetadata = () =>
       : "バイクフィッティングの予約・相談、全国出張の依頼、ライフプラン相談の窓口。現在、フォームからの送信受付は準備中です。",
     "/contact",
   );
-export default async function Contact({
-  searchParams,
-}: {
-  searchParams: Promise<{ type?: string }>;
-}) {
-  const params = await searchParams;
+export default function Contact() {
   return (
     <>
       <PageHero
@@ -54,10 +51,13 @@ export default async function Contact({
             </a>
           </p>
         </div>
-        <ContactForm
-          initialType={params.type || "bike"}
-          enabled={contactFormEnabled}
-        />
+        <Suspense
+          fallback={
+            <ContactForm initialType="bike" enabled={contactFormEnabled} />
+          }
+        >
+          <ContactFormFromQuery enabled={contactFormEnabled} />
+        </Suspense>
       </section>
     </>
   );

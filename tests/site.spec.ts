@@ -74,6 +74,10 @@ test("FAQ can be expanded", async ({ page }) => {
 test("form validates fields and never sends or stores personal information", async ({
   page,
 }) => {
+  test.skip(
+    process.env.CONTACT_SUBMISSION_TEST === "1",
+    "Disabled-mode build only",
+  );
   await page.goto("/contact?type=travel");
   const requests: string[] = [];
   page.on("request", (r) => {

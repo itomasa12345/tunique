@@ -155,7 +155,7 @@ export default function Bike() {
             <br />
             これからの走りを考える新しい基準になります。
           </p>
-          <CTA href="/contact?type=bike">ロードバイクの相談</CTA>
+          <CTA href="/contact?type=road">ロードバイクの相談</CTA>
         </div>
       </section>
       <section
@@ -230,7 +230,7 @@ export default function Bike() {
               <br />
               選手自身が判断し、調整するための指標を。
             </p>
-            <CTA href="/contact?type=bike">競輪フィッティングの相談</CTA>
+            <CTA href="/contact?type=keirin">競輪フィッティングの相談</CTA>
           </div>
         </div>
       </section>
