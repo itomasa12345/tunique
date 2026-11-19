@@ -163,7 +163,10 @@ test("second manuscript preserves headings and keeps the next article as plain t
   request,
 }) => {
   const path = "/columns/why-road-bike-position-mattered";
-  if (!drafts) {
+  const article = columns.find(
+    (a) => a.slug === "why-road-bike-position-mattered",
+  )!;
+  if (!drafts && !isPublishedColumn(article)) {
     expect((await request.get(path)).status()).toBe(404);
     return;
   }
@@ -180,6 +183,26 @@ test("second manuscript preserves headings and keeps the next article as plain t
   await expect(page.locator(".column-next-teaser a")).toHaveCount(0);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
-    "noindex, nofollow",
+    isPublishedColumn(article) && process.env.SEARCH_INDEXING_ENABLED === "true"
+      ? "index, follow"
+      : "noindex, nofollow",
   );
+});
+
+test("NIPPO article preserves the photo frame and credit", async ({ page }) => {
+  await page.goto("/columns/why-road-bike-position-mattered");
+  await expect(page.locator(".column-image-credit")).toHaveText(
+    "© NIPPO - Vini Fantini - Faizanè",
+  );
+  await expect(page.locator(".column-hero-image img")).toHaveAttribute(
+    "alt",
+    "NIPPOの選手たちがロードバイクで一緒に走る様子",
+  );
+  await page.goto("/columns");
+  const image = page.locator(
+    'a[href="/columns/why-road-bike-position-mattered"] .column-card-image img',
+  );
+  await expect(image).toHaveCSS("object-fit", "contain");
+  await image.hover();
+  await expect(image).toHaveCSS("transform", "none");
 });

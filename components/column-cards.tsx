@@ -14,7 +14,9 @@ export function ColumnCards({ articles }: { articles: Column[] }) {
       {articles.map((article) => (
         <article key={article.slug} className="column-card">
           <Link href={`/columns/${article.slug}`}>
-            <div className="column-card-image">
+            <div
+              className={`column-card-image${article.preserveImageFrame ? " column-image-full-frame" : ""}`}
+            >
               <Image
                 {...article.image}
                 sizes="(max-width: 760px) 100vw, 50vw"

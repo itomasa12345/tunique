@@ -126,6 +126,9 @@ export default async function ColumnPage({
             priority
           />
         </div>
+        {article.imageCredit && (
+          <p className="small column-image-credit">{article.imageCredit}</p>
+        )}
         {article.sections.length > 0 && (
           <nav aria-label="この記事の目次" className="column-toc">
             <h2>この記事の内容</h2>

@@ -12,6 +12,8 @@ export type Column = {
   publishedAt?: string;
   updatedAt?: string;
   image: { src: string; alt: string; width: number; height: number };
+  preserveImageFrame?: boolean;
+  imageCredit?: string;
   body?: string[];
   bodyHeadingIndices?: number[];
   teaserIndex?: number;
@@ -29,16 +31,19 @@ export const columns: Column[] = [
     description:
       "怪我をしてから引退までの8年間。伊藤雅和が、仕事として走る責任と、ロードバイクのポジションを追い求め続けた理由を綴ります。",
     category: "ロードバイク",
-    status: "draft",
+    status: "published",
+    publishedAt: "2026-11-20",
     author: { name: "伊藤雅和", url: "/about" },
     draftNote:
       "下書き・確認用：伊藤雅和さんからいただいた次の記事です。本番には未公開です。",
     image: {
-      src: "/images/road/road-riding.jpg",
-      alt: "青いウェアでロードバイクに乗り、屋外を走る伊藤雅和",
-      width: 1280,
-      height: 853,
+      src: "/images/road/nippo-team-riding.jpg",
+      alt: "NIPPOの選手たちがロードバイクで一緒に走る様子",
+      width: 1439,
+      height: 960,
     },
+    imageCredit: "© NIPPO - Vini Fantini - Faizanè",
+    preserveImageFrame: true,
     body: whyPositionMatteredBody,
     bodyHeadingIndices: [4, 15],
     teaserIndex: 33,
