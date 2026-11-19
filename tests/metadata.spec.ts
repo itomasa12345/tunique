@@ -8,6 +8,7 @@ const paths = [
   "/contact",
   "/privacy",
   "/columns",
+  ...columns.filter(isPublishedColumn).map((a) => `/columns/${a.slug}`),
 ];
 const indexed = process.env.SEARCH_INDEXING_ENABLED === "true";
 const origin = process.env.SITE_URL || "http://localhost:3000";

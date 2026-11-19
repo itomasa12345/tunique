@@ -26,7 +26,8 @@ export const columns: Column[] = [
     description:
       "もっと自転車が楽しくなる。伊藤雅和が、自身の競技経験とTUNIQUE BIKE FITTINGで届けたいことを綴ります。",
     category: "フィッティング",
-    status: "draft",
+    status: "published",
+    publishedAt: "2026-11-20",
     author: { name: "伊藤雅和", url: "/about" },
     draftNote:
       "下書き・確認用：伊藤雅和さんからいただいた原稿です。本番には未公開です。",

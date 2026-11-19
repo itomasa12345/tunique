@@ -130,7 +130,8 @@ test("user manuscript keeps every paragraph in order", async ({
   request,
 }) => {
   const path = "/columns/tunique-bike-fitting";
-  if (!drafts) {
+  const article = columns.find((a) => a.slug === "tunique-bike-fitting")!;
+  if (!drafts && !isPublishedColumn(article)) {
     expect((await request.get(path)).status()).toBe(404);
     return;
   }
@@ -151,6 +152,8 @@ test("user manuscript keeps every paragraph in order", async ({
   ).toHaveCount(0);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
-    "noindex, nofollow",
+    isPublishedColumn(article) && process.env.SEARCH_INDEXING_ENABLED === "true"
+      ? "index, follow"
+      : "noindex, nofollow",
   );
 });
