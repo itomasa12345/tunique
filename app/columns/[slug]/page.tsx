@@ -140,9 +140,22 @@ export default async function ColumnPage({
         )}
         {article.body && (
           <div className="column-prose">
-            {article.body.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+            {article.body.map((paragraph, index) =>
+              article.bodyHeadingIndices?.includes(index) ? (
+                <h2 key={index}>{paragraph}</h2>
+              ) : (
+                <p
+                  key={index}
+                  className={
+                    article.teaserIndex === index
+                      ? "column-next-teaser"
+                      : undefined
+                  }
+                >
+                  {paragraph}
+                </p>
+              ),
+            )}
           </div>
         )}
         {article.sections.map((s, i) => (

@@ -157,3 +157,29 @@ test("user manuscript keeps every paragraph in order", async ({
       : "noindex, nofollow",
   );
 });
+
+test("second manuscript preserves headings and keeps the next article as plain text", async ({
+  page,
+  request,
+}) => {
+  const path = "/columns/why-road-bike-position-mattered";
+  if (!drafts) {
+    expect((await request.get(path)).status()).toBe(404);
+    return;
+  }
+  const { whyPositionMatteredBody } =
+    await import("../content/columns/why-position-mattered");
+  await page.goto(path);
+  expect(await page.locator(".column-prose > *").allTextContents()).toEqual(
+    whyPositionMatteredBody,
+  );
+  await expect(page.locator(".column-prose h2")).toHaveCount(2);
+  await expect(page.locator(".column-next-teaser")).toHaveText(
+    "次の記事：8年間、毎日ロードバイクのポジションを考え続けた",
+  );
+  await expect(page.locator(".column-next-teaser a")).toHaveCount(0);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    "noindex, nofollow",
+  );
+});

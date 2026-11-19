@@ -2461,3 +2461,6 @@ textarea::placeholder {
 .column-prose p { margin-bottom: 1.8em; font-size: 17px; line-height: 2.2; }
 .column-prose p:first-child { font-size: clamp(23px, 3vw, 32px); font-weight: 700; margin-bottom: 1.4em; }
 @media (max-width: 760px) { .column-prose p { font-size: 16px; } .column-prose p:first-child { font-size: 24px; } }
+
+.column-prose h2 { font-size: clamp(23px, 3vw, 30px); line-height: 1.7; margin: 2.6em 0 1.2em; }
+.column-prose .column-next-teaser { border-top: 1px solid var(--line); padding-top: 28px; margin-top: 48px; }

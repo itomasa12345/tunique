@@ -1,3 +1,4 @@
+import { whyPositionMatteredBody } from "@/content/columns/why-position-mattered";
 import { tuniqueBikeFittingBody } from "@/content/columns/tunique-bike-fitting";
 import { roadPrinciples, keirinPrinciples } from "@/lib/fitting";
 
@@ -12,14 +13,42 @@ export type Column = {
   updatedAt?: string;
   image: { src: string; alt: string; width: number; height: number };
   body?: string[];
+  bodyHeadingIndices?: number[];
+  teaserIndex?: number;
   draftNote?: string;
   sections: { title: string; paragraphs: string[] }[];
   relatedService: { href: string; label: string };
   contactType: "road" | "keirin" | "bike";
 };
 
-// Editorial drafts based only on existing site copy. Owner review required.
+// Owner manuscripts and unapproved editorial drafts. Publishing is explicit.
 export const columns: Column[] = [
+  {
+    slug: "why-road-bike-position-mattered",
+    title: "なぜ僕はロードバイクのポジションにめちゃくちゃこだわったのか",
+    description:
+      "怪我をしてから引退までの8年間。伊藤雅和が、仕事として走る責任と、ロードバイクのポジションを追い求め続けた理由を綴ります。",
+    category: "ロードバイク",
+    status: "draft",
+    author: { name: "伊藤雅和", url: "/about" },
+    draftNote:
+      "下書き・確認用：伊藤雅和さんからいただいた次の記事です。本番には未公開です。",
+    image: {
+      src: "/images/road/road-riding.jpg",
+      alt: "青いウェアでロードバイクに乗り、屋外を走る伊藤雅和",
+      width: 1280,
+      height: 853,
+    },
+    body: whyPositionMatteredBody,
+    bodyHeadingIndices: [4, 15],
+    teaserIndex: 33,
+    sections: [],
+    relatedService: {
+      href: "/bike-fitting#road",
+      label: "ロードバイクのフィッティングを知る",
+    },
+    contactType: "road",
+  },
   {
     slug: "tunique-bike-fitting",
     title: "TUNIQUE BIKE FITTINGについて",
