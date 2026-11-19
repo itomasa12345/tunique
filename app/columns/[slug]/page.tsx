@@ -108,10 +108,16 @@ export default async function ColumnPage({
             </p>
           ) : (
             <p className="column-draft" role="note">
-              下書き・確認用：既存のサービス説明をもとにした記事案です。本人確認前のため未公開です。
+              {article.draftNote ||
+                "下書き・確認用：既存のサービス説明をもとにした記事案です。本人確認前のため未公開です。"}
             </p>
           )}
-          <p className="lead">{article.description}</p>
+          {!published && article.author && (
+            <p className="small">
+              執筆：<Link href={article.author.url}>{article.author.name}</Link>
+            </p>
+          )}
+          {!article.body && <p className="lead">{article.description}</p>}
         </header>
         <div className="column-hero-image">
           <Image
@@ -120,16 +126,25 @@ export default async function ColumnPage({
             priority
           />
         </div>
-        <nav aria-label="この記事の目次" className="column-toc">
-          <h2>この記事の内容</h2>
-          <ol>
-            {article.sections.map((s, i) => (
-              <li key={s.title}>
-                <a href={`#section-${i + 1}`}>{s.title}</a>
-              </li>
+        {article.sections.length > 0 && (
+          <nav aria-label="この記事の目次" className="column-toc">
+            <h2>この記事の内容</h2>
+            <ol>
+              {article.sections.map((s, i) => (
+                <li key={s.title}>
+                  <a href={`#section-${i + 1}`}>{s.title}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+        {article.body && (
+          <div className="column-prose">
+            {article.body.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
             ))}
-          </ol>
-        </nav>
+          </div>
+        )}
         {article.sections.map((s, i) => (
           <section id={`section-${i + 1}`} key={s.title}>
             <h2>{s.title}</h2>

@@ -2456,3 +2456,8 @@ textarea::placeholder {
 .column-draft { border-left: 3px solid currentColor; padding: 16px 20px; background: #e5e2da; font-size: 14px; line-height: 1.9; }
 @media (max-width: 760px) { .column-grid { grid-template-columns: 1fr; gap: 40px; } .column-article header { margin-top: 36px; } }
 @media (prefers-reduced-motion: reduce) { .column-card-image img { transition: none; } }
+
+.column-prose { max-width: 700px; margin: 56px auto; }
+.column-prose p { margin-bottom: 1.8em; font-size: 17px; line-height: 2.2; }
+.column-prose p:first-child { font-size: clamp(23px, 3vw, 32px); font-weight: 700; margin-bottom: 1.4em; }
+@media (max-width: 760px) { .column-prose p { font-size: 16px; } .column-prose p:first-child { font-size: 24px; } }

@@ -1,15 +1,18 @@
+import { tuniqueBikeFittingBody } from "@/content/columns/tunique-bike-fitting";
 import { roadPrinciples, keirinPrinciples } from "@/lib/fitting";
 
 export type Column = {
   slug: string;
   title: string;
   description: string;
-  category: "ロードバイク" | "競輪" | "ロードレース";
+  category: "ロードバイク" | "競輪" | "ロードレース" | "フィッティング";
   status: "draft" | "published";
   author?: { name: string; url: string };
   publishedAt?: string;
   updatedAt?: string;
   image: { src: string; alt: string; width: number; height: number };
+  body?: string[];
+  draftNote?: string;
   sections: { title: string; paragraphs: string[] }[];
   relatedService: { href: string; label: string };
   contactType: "road" | "keirin" | "bike";
@@ -17,6 +20,30 @@ export type Column = {
 
 // Editorial drafts based only on existing site copy. Owner review required.
 export const columns: Column[] = [
+  {
+    slug: "tunique-bike-fitting",
+    title: "TUNIQUE BIKE FITTINGについて",
+    description:
+      "もっと自転車が楽しくなる。伊藤雅和が、自身の競技経験とTUNIQUE BIKE FITTINGで届けたいことを綴ります。",
+    category: "フィッティング",
+    status: "draft",
+    author: { name: "伊藤雅和", url: "/about" },
+    draftNote:
+      "下書き・確認用：伊藤雅和さんからいただいた原稿です。本番には未公開です。",
+    image: {
+      src: "/images/road/road-riding.jpg",
+      alt: "青いウェアでロードバイクに乗り、屋外を走る伊藤雅和",
+      width: 1280,
+      height: 853,
+    },
+    body: tuniqueBikeFittingBody,
+    sections: [],
+    relatedService: {
+      href: "/bike-fitting",
+      label: "TUNIQUE BIKE FITTINGを知る",
+    },
+    contactType: "bike",
+  },
   {
     slug: "road-fitting-whole-body",
     title: "ロードバイクのフィッティングでは、何を確認する？",

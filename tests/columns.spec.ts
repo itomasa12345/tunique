@@ -54,7 +54,7 @@ test("column listing and article visibility respect publication status", async (
       article.title,
     );
     if (!isPublishedColumn(article)) {
-      await expect(page.getByRole("note")).toContainText("本人確認前");
+      await expect(page.getByRole("note")).toContainText("未公開");
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
         "content",
         "noindex, nofollow",
@@ -70,12 +70,14 @@ test("column listing and article visibility respect publication status", async (
       expect(schema.author.name).toBe(article.author!.name);
       expect(schema.datePublished).toBe(article.publishedAt);
     }
-    await page
-      .getByRole("navigation", { name: "この記事の目次" })
-      .getByRole("link")
-      .first()
-      .click();
-    await expect(page).toHaveURL(/#section-1$/);
+    if (article.sections.length) {
+      await page
+        .getByRole("navigation", { name: "この記事の目次" })
+        .getByRole("link")
+        .first()
+        .click();
+      await expect(page).toHaveURL(/#section-1$/);
+    }
     await page.getByRole("link", { name: "フィッティングを相談する" }).click();
     await expect(
       page.locator(`input[value="${article.contactType}"]`),
@@ -121,4 +123,34 @@ test("hosting production never opts into draft visibility", () => {
       VERCEL_ENV: "production",
     }),
   ).toBe(false);
+});
+
+test("user manuscript keeps every paragraph in order", async ({
+  page,
+  request,
+}) => {
+  const path = "/columns/tunique-bike-fitting";
+  if (!drafts) {
+    expect((await request.get(path)).status()).toBe(404);
+    return;
+  }
+  await page.goto(path);
+  const { tuniqueBikeFittingBody } =
+    await import("../content/columns/tunique-bike-fitting");
+  expect(await page.locator(".column-prose > p").allTextContents()).toEqual(
+    tuniqueBikeFittingBody,
+  );
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "TUNIQUE BIKE FITTINGについて",
+  );
+  await expect(
+    page.locator("header").filter({ has: page.locator("h1") }),
+  ).toContainText("執筆：伊藤雅和");
+  await expect(
+    page.getByRole("navigation", { name: "この記事の目次" }),
+  ).toHaveCount(0);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    "noindex, nofollow",
+  );
 });
