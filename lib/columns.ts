@@ -3,6 +3,13 @@ import { whyPositionMatteredBody } from "@/content/columns/why-position-mattered
 import { tuniqueBikeFittingBody } from "@/content/columns/tunique-bike-fitting";
 import { roadPrinciples, keirinPrinciples } from "@/lib/fitting";
 
+export type ColumnImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
 export type Column = {
   slug: string;
   title: string;
@@ -12,7 +19,8 @@ export type Column = {
   author?: { name: string; url: string };
   publishedAt?: string;
   updatedAt?: string;
-  image: { src: string; alt: string; width: number; height: number };
+  image: ColumnImage;
+  bodyImages?: { afterIndex: number; image: ColumnImage; caption?: string }[];
   preserveImageFrame?: boolean;
   imageCredit?: string;
   body?: string[];
@@ -36,14 +44,13 @@ export const columns: Column[] = [
     status: "draft",
     author: { name: "伊藤雅和", url: "/about" },
     draftNote:
-      "下書き・確認用：伊藤雅和さんからいただいた続きの原稿です。本番には未公開です。写真は前の記事と同じものを仮配置しています。",
+      "下書き・確認用：伊藤雅和さんからいただいた続きの原稿です。本番には未公開です。写真の配置を確認するための下書きです。",
     image: {
-      src: "/images/road/nippo-team-riding.jpg",
-      alt: "NIPPOの選手たちがロードバイクで一緒に走る様子",
-      width: 1439,
-      height: 960,
+      src: "/images/road/rear-position-check.jpg",
+      alt: "ロードバイクの後方からサドル周辺を確認する様子",
+      width: 853,
+      height: 1280,
     },
-    imageCredit: "© NIPPO - Vini Fantini - Faizanè",
     preserveImageFrame: true,
     body: eightYearsPositionBody,
     bodyHeadingIndices: [10, 18],

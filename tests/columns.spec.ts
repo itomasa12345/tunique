@@ -219,15 +219,15 @@ test("eight-year manuscript keeps its text, previous link and next teaser", asyn
   const { eightYearsPositionBody } =
     await import("../content/columns/eight-years-position");
   await page.goto(path);
-  expect(await page.locator(".column-prose > *").allTextContents()).toEqual(
-    eightYearsPositionBody,
-  );
+  expect(
+    await page
+      .locator(".column-prose > p, .column-prose > h2")
+      .allTextContents(),
+  ).toEqual(eightYearsPositionBody);
   await expect(page.locator(".column-prose h2")).toHaveCount(2);
-  const previous = page
-    .locator(".column-prose")
-    .getByRole("link", {
-      name: "前の記事：なぜ僕はロードバイクのポジションにめちゃくちゃこだわったのか",
-    });
+  const previous = page.locator(".column-prose").getByRole("link", {
+    name: "前の記事：なぜ僕はロードバイクのポジションにめちゃくちゃこだわったのか",
+  });
   await expect(previous).toHaveAttribute(
     "href",
     "/columns/why-road-bike-position-mattered",

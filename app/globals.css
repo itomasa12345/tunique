@@ -2469,3 +2469,7 @@ textarea::placeholder {
 .column-card a:hover .column-image-full-frame img { transform: none; }
 
 .column-prose a { text-decoration: underline; text-underline-offset: 4px; }
+
+.column-body-image { margin: 32px 0; }
+.column-body-image img { display: block; width: 100%; height: auto; object-fit: contain; }
+.column-body-image figcaption { margin-top: 12px; line-height: 1.8; }

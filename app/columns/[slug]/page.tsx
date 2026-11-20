@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -143,33 +144,49 @@ export default async function ColumnPage({
         )}
         {article.body && (
           <div className="column-prose">
-            {article.body.map((paragraph, index) =>
-              article.bodyHeadingIndices?.includes(index) ? (
-                <h2 key={index}>{paragraph}</h2>
-              ) : (
-                <p
-                  key={index}
-                  className={
-                    article.teaserIndex === index
-                      ? "column-next-teaser"
-                      : undefined
-                  }
-                >
-                  {article.bodyLinks?.find((link) => link.index === index) ? (
-                    <Link
-                      href={
-                        article.bodyLinks.find((link) => link.index === index)!
-                          .href
+            {article.body.map((paragraph, index) => {
+              const link = article.bodyLinks?.find(
+                (item) => item.index === index,
+              );
+              const photos =
+                article.bodyImages?.filter(
+                  (item) => item.afterIndex === index,
+                ) || [];
+              return (
+                <Fragment key={index}>
+                  {article.bodyHeadingIndices?.includes(index) ? (
+                    <h2>{paragraph}</h2>
+                  ) : (
+                    <p
+                      className={
+                        article.teaserIndex === index
+                          ? "column-next-teaser"
+                          : undefined
                       }
                     >
-                      {paragraph}
-                    </Link>
-                  ) : (
-                    paragraph
+                      {link ? (
+                        <Link href={link.href}>{paragraph}</Link>
+                      ) : (
+                        paragraph
+                      )}
+                    </p>
                   )}
-                </p>
-              ),
-            )}
+                  {photos.map((photo) => (
+                    <figure className="column-body-image" key={photo.image.src}>
+                      <Image
+                        {...photo.image}
+                        sizes="(max-width: 760px) 100vw, 700px"
+                      />
+                      {photo.caption && (
+                        <figcaption className="small">
+                          {photo.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
+                </Fragment>
+              );
+            })}
           </div>
         )}
         {article.sections.map((s, i) => (
