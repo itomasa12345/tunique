@@ -155,7 +155,18 @@ export default async function ColumnPage({
                       : undefined
                   }
                 >
-                  {paragraph}
+                  {article.bodyLinks?.find((link) => link.index === index) ? (
+                    <Link
+                      href={
+                        article.bodyLinks.find((link) => link.index === index)!
+                          .href
+                      }
+                    >
+                      {paragraph}
+                    </Link>
+                  ) : (
+                    paragraph
+                  )}
                 </p>
               ),
             )}

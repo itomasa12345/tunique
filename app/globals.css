@@ -2467,3 +2467,5 @@ textarea::placeholder {
 
 .column-image-full-frame img { object-fit: contain; }
 .column-card a:hover .column-image-full-frame img { transform: none; }
+
+.column-prose a { text-decoration: underline; text-underline-offset: 4px; }

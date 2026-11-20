@@ -206,3 +206,52 @@ test("NIPPO article preserves the photo frame and credit", async ({ page }) => {
   await image.hover();
   await expect(image).toHaveCSS("transform", "none");
 });
+
+test("eight-year manuscript keeps its text, previous link and next teaser", async ({
+  page,
+  request,
+}) => {
+  const path = "/columns/eight-years-road-bike-position";
+  if (!drafts) {
+    expect((await request.get(path)).status()).toBe(404);
+    return;
+  }
+  const { eightYearsPositionBody } =
+    await import("../content/columns/eight-years-position");
+  await page.goto(path);
+  expect(await page.locator(".column-prose > *").allTextContents()).toEqual(
+    eightYearsPositionBody,
+  );
+  await expect(page.locator(".column-prose h2")).toHaveCount(2);
+  const previous = page
+    .locator(".column-prose")
+    .getByRole("link", {
+      name: "前の記事：なぜ僕はロードバイクのポジションにめちゃくちゃこだわったのか",
+    });
+  await expect(previous).toHaveAttribute(
+    "href",
+    "/columns/why-road-bike-position-mattered",
+  );
+  await expect(
+    page
+      .locator(".column-prose")
+      .getByText(
+        "次の記事：ロードバイクのクリート位置は左右同じでなければいけないのか？",
+        { exact: true },
+      ),
+  ).toBeVisible();
+  await expect(page.locator(".column-prose a")).toHaveCount(1);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    "noindex, nofollow",
+  );
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(
+    0,
+  );
+  await previous.click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "なぜ僕はロードバイクのポジションにめちゃくちゃこだわったのか",
+  );
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  expect(sitemap).not.toContain("eight-years-road-bike-position");
+});

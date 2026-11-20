@@ -1,3 +1,4 @@
+import { eightYearsPositionBody } from "@/content/columns/eight-years-position";
 import { whyPositionMatteredBody } from "@/content/columns/why-position-mattered";
 import { tuniqueBikeFittingBody } from "@/content/columns/tunique-bike-fitting";
 import { roadPrinciples, keirinPrinciples } from "@/lib/fitting";
@@ -16,6 +17,7 @@ export type Column = {
   imageCredit?: string;
   body?: string[];
   bodyHeadingIndices?: number[];
+  bodyLinks?: { index: number; href: string }[];
   teaserIndex?: number;
   draftNote?: string;
   sections: { title: string; paragraphs: string[] }[];
@@ -25,6 +27,37 @@ export type Column = {
 
 // Owner manuscripts and unapproved editorial drafts. Publishing is explicit.
 export const columns: Column[] = [
+  {
+    slug: "eight-years-road-bike-position",
+    title: "8年間、毎日ロードバイクのポジションを考え続けた",
+    description:
+      "怪我から引退まで、毎日ポジションを探し続けた8年間。その経験がTUNIQUEのフィッティングの土台になるまでを、伊藤雅和が綴ります。",
+    category: "ロードバイク",
+    status: "draft",
+    author: { name: "伊藤雅和", url: "/about" },
+    draftNote:
+      "下書き・確認用：伊藤雅和さんからいただいた続きの原稿です。本番には未公開です。写真は前の記事と同じものを仮配置しています。",
+    image: {
+      src: "/images/road/nippo-team-riding.jpg",
+      alt: "NIPPOの選手たちがロードバイクで一緒に走る様子",
+      width: 1439,
+      height: 960,
+    },
+    imageCredit: "© NIPPO - Vini Fantini - Faizanè",
+    preserveImageFrame: true,
+    body: eightYearsPositionBody,
+    bodyHeadingIndices: [10, 18],
+    bodyLinks: [
+      { index: 32, href: "/columns/why-road-bike-position-mattered" },
+    ],
+    teaserIndex: 32,
+    sections: [],
+    relatedService: {
+      href: "/bike-fitting#road",
+      label: "ロードバイクのフィッティングを知る",
+    },
+    contactType: "road",
+  },
   {
     slug: "why-road-bike-position-mattered",
     title: "なぜ僕はロードバイクのポジションにめちゃくちゃこだわったのか",
