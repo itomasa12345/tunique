@@ -52,6 +52,17 @@ export const columns: Column[] = [
       height: 1280,
     },
     preserveImageFrame: true,
+    bodyImages: [
+      {
+        afterIndex: 18,
+        image: {
+          src: "/images/road/shoe-inspection.jpg",
+          alt: "シューズを手に持って確認する様子",
+          width: 1280,
+          height: 853,
+        },
+      },
+    ],
     body: eightYearsPositionBody,
     bodyHeadingIndices: [10, 18],
     bodyLinks: [

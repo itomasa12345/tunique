@@ -225,6 +225,18 @@ test("eight-year manuscript keeps its text, previous link and next teaser", asyn
       .allTextContents(),
   ).toEqual(eightYearsPositionBody);
   await expect(page.locator(".column-prose h2")).toHaveCount(2);
+  const photoAfterHeading = page
+    .locator(".column-prose h2")
+    .nth(1)
+    .locator("xpath=following-sibling::*[1]");
+  await expect(photoAfterHeading.locator("img")).toHaveAttribute(
+    "src",
+    /shoe-inspection/,
+  );
+  await expect(photoAfterHeading.locator("img")).toHaveCSS(
+    "object-fit",
+    "contain",
+  );
   const previous = page.locator(".column-prose").getByRole("link", {
     name: "前の記事：なぜ僕はロードバイクのポジションにめちゃくちゃこだわったのか",
   });
