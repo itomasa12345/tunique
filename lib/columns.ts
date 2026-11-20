@@ -41,7 +41,8 @@ export const columns: Column[] = [
     description:
       "怪我から引退まで、毎日ポジションを探し続けた8年間。その経験がTUNIQUEのフィッティングの土台になるまでを、伊藤雅和が綴ります。",
     category: "ロードバイク",
-    status: "draft",
+    status: "published",
+    publishedAt: "2026-11-20",
     author: { name: "伊藤雅和", url: "/about" },
     draftNote:
       "下書き・確認用：伊藤雅和さんからいただいた続きの原稿です。本番には未公開です。写真の配置を確認するための下書きです。",
@@ -95,6 +96,7 @@ export const columns: Column[] = [
     },
     imageCredit: "© NIPPO - Vini Fantini - Faizanè",
     preserveImageFrame: true,
+    bodyLinks: [{ index: 33, href: "/columns/eight-years-road-bike-position" }],
     body: whyPositionMatteredBody,
     bodyHeadingIndices: [4, 15],
     teaserIndex: 33,

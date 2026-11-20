@@ -180,7 +180,10 @@ test("second manuscript preserves headings and keeps the next article as plain t
   await expect(page.locator(".column-next-teaser")).toHaveText(
     "次の記事：8年間、毎日ロードバイクのポジションを考え続けた",
   );
-  await expect(page.locator(".column-next-teaser a")).toHaveCount(0);
+  await expect(page.locator(".column-next-teaser a")).toHaveAttribute(
+    "href",
+    "/columns/eight-years-road-bike-position",
+  );
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
     isPublishedColumn(article) && process.env.SEARCH_INDEXING_ENABLED === "true"
@@ -212,7 +215,13 @@ test("eight-year manuscript keeps its text, previous link and next teaser", asyn
   request,
 }) => {
   const path = "/columns/eight-years-road-bike-position";
-  if (!drafts) {
+  const article = columns.find(
+    (a) => a.slug === "eight-years-road-bike-position",
+  )!;
+  const indexed =
+    isPublishedColumn(article) &&
+    process.env.SEARCH_INDEXING_ENABLED === "true";
+  if (!drafts && !isPublishedColumn(article)) {
     expect((await request.get(path)).status()).toBe(404);
     return;
   }
@@ -255,15 +264,16 @@ test("eight-year manuscript keeps its text, previous link and next teaser", asyn
   await expect(page.locator(".column-prose a")).toHaveCount(1);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
-    "noindex, nofollow",
+    indexed ? "index, follow" : "noindex, nofollow",
   );
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(
-    0,
+    isPublishedColumn(article) ? 1 : 0,
   );
   await previous.click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "なぜ僕はロードバイクのポジションにめちゃくちゃこだわったのか",
   );
   const sitemap = await (await request.get("/sitemap.xml")).text();
-  expect(sitemap).not.toContain("eight-years-road-bike-position");
+  if (indexed) expect(sitemap).toContain("eight-years-road-bike-position");
+  else expect(sitemap).not.toContain("eight-years-road-bike-position");
 });
