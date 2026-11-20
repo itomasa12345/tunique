@@ -1,0 +1,12 @@
+(() => {
+ const button=document.querySelector('.menu-toggle'), nav=document.querySelector('#mobile-nav');
+ if(button&&nav){const toggle=(open)=>{nav.hidden=!open;button.setAttribute('aria-expanded',String(open));button.setAttribute('aria-label',open?'メニューを閉じる':'メニューを開く');button.textContent=open?'CLOSE −':'MENU +';if(open)nav.querySelector('a')?.focus();};button.addEventListener('click',()=>toggle(nav.hidden));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!nav.hidden){toggle(false);button.focus();}});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggle(false)));}
+ document.querySelectorAll('.desktop-nav a').forEach(a=>{if(location.pathname.replace(/\/$/,'')===new URL(a.href).pathname.replace(/\/$/,''))a.setAttribute('aria-current','page');});
+ const form=document.querySelector('.contact-form[data-tunique-contact]');
+ if(!form)return;
+ const region=form.querySelector('[name="region"]');
+ const update=()=>{const type=form.querySelector('[name="type"]:checked')?.value;form.querySelectorAll('.type-options label').forEach(l=>l.classList.toggle('selected',l.querySelector('input').checked));region.required=type==='travel';form.querySelector('[data-region-required]').textContent=region.required?'必須':'任意';};
+ form.querySelectorAll('[name="type"]').forEach(i=>i.addEventListener('change',update));update();
+ let sending=false;
+ form.addEventListener('submit',async e=>{e.preventDefault();if(sending||!form.reportValidity())return;const result=form.querySelector('[role="status"]'),submit=form.querySelector('[type="submit"]');sending=true;submit.disabled=true;form.setAttribute('aria-busy','true');result.textContent='送信しています…';const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);try{const response=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'},signal:controller.signal});const data=await response.json();result.textContent=data.message;if(response.ok&&data.success){form.querySelectorAll('input,textarea,button').forEach(x=>x.disabled=true);submit.textContent='送信済み';}else submit.disabled=false;}catch{result.textContent='送信結果を確認できませんでした。入力内容は残っています。時間をおいてから再度お試しください。';submit.disabled=false;}finally{sending=false;clearTimeout(timer);form.setAttribute('aria-busy','false');}});
+})();
