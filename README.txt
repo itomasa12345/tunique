@@ -1,4 +1,4 @@
-TUNIQUE WordPressテーマ 1.0.0
+TUNIQUE WordPressテーマ 1.0.1
 
 導入先：制作確認用 https://masakazu-ito.com/tunique-preview/
 
@@ -47,3 +47,5 @@ SQLiteはローカルテストにのみ使用し、配布物には含みませ�
 Theme code: GPL-2.0-or-later. WordPress is separately distributed under GPL.
 Bundled photographs and TUNIQUE branding retain their respective owners' rights;
 use for this TUNIQUE website only. Third-party photo credits remain displayed.
+
+1.0.1: お問い合わせの送信先を公開ページへ変更。管理画面のアクセス制限を受けない経路とし、非JSON応答時のエラー表示を追加。テーマを更新して有効化するだけでよく、データの再取り込みは不要です。

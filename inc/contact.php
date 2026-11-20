@@ -9,7 +9,7 @@ add_shortcode('tunique_contact', function () {
     $type = isset($_GET['type']) ? sanitize_key($_GET['type']) : 'bike';
     if (!isset(tunique_contact_types()[$type])) { $type = 'bike'; }
     ob_start(); ?>
-    <form class="contact-form" data-tunique-contact method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+    <form class="contact-form" data-tunique-contact method="post" action="<?php echo esc_url(home_url('/contact/')); ?>">
     <input type="hidden" name="action" value="tunique_contact"><?php wp_nonce_field('tunique_contact', 'tunique_nonce', false); ?>
     <div class="form-honeypot" aria-hidden="true"><label>入力しないでください<input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label></div>
     <div class="form-status"><span class="status-dot"></span><div><strong><?php echo $enabled ? 'お問い合わせ内容をお送りください' : 'お問い合わせ受付は準備中です'; ?></strong><p><?php echo $enabled ? 'ご返信はメールでご案内します。' : '現在、このフォームからの送信・保存はできません。'; ?></p></div></div>
@@ -23,6 +23,17 @@ add_shortcode('tunique_contact', function () {
     <button class="button" type="submit" <?php disabled(!$enabled); ?>><?php echo $enabled ? 'お問い合わせを送信する' : '受付準備中'; ?><span aria-hidden="true">↗</span></button><p role="status" aria-live="polite" class="form-result"></p></form>
     <?php return ob_get_clean();
 });
+// Keep public enquiries out of wp-admin, which hosts may restrict independently.
+add_action('init', function () {
+    $request_path = wp_parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $contact_path = wp_parse_url(home_url('/contact/'), PHP_URL_PATH);
+    if (untrailingslashit((string)$request_path) !== untrailingslashit((string)$contact_path)) { return; }
+    if (!defined('DONOTCACHEPAGE')) { define('DONOTCACHEPAGE', true); }
+    nocache_headers();
+    if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && ($_POST['action'] ?? '') === 'tunique_contact') {
+        tunique_send_contact();
+    }
+}, 0);
 add_action('admin_post_nopriv_tunique_contact', 'tunique_send_contact');
 add_action('admin_post_tunique_contact', 'tunique_send_contact');
 function tunique_contact_response($success, $message, $status) {
@@ -51,7 +62,11 @@ function tunique_send_contact() {
     if (get_transient($key)) { tunique_contact_response(false, '少し時間をおいてから送信してください。', 429); }
     set_transient($key, 1, 60);
     $body = 'お名前：' . $fields['name'] . "\nメール：" . $fields['email'] . "\n種別：" . $types[$fields['type']] . "\n地域：" . $fields['region'] . "\n\n" . $fields['message'] . "\n\nプライバシーポリシーに同意済み\n送信時点では予約は確定しません。";
-    $sent = wp_mail(get_option('tunique_contact_recipient'), '[TUNIQUE] ' . $types[$fields['type']], $body, array('Reply-To: ' . sanitize_email($fields['email'])));
+    try {
+        $sent = wp_mail(get_option('tunique_contact_recipient'), '[TUNIQUE] ' . $types[$fields['type']], $body, array('Reply-To: ' . sanitize_email($fields['email'])));
+    } catch (Throwable $error) {
+        $sent = false;
+    }
     if (!$sent) { delete_transient($key); tunique_contact_response(false, '送信できませんでした。時間をおいてから再度お試しください。', 502); }
     tunique_contact_response(true, 'お問い合わせを送信しました。メールでの返信をお待ちください。', 200);
 }

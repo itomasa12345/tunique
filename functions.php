@@ -9,9 +9,9 @@ add_action('after_setup_theme', function () {
     add_theme_support('html5', array('search-form', 'gallery', 'caption', 'style', 'script'));
 });
 add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_style('tunique-site', get_theme_file_uri('/assets/site.css'), array(), '1.0.0');
-    wp_enqueue_style('tunique-wp', get_theme_file_uri('/assets/wordpress.css'), array('tunique-site'), '1.0.0');
-    wp_enqueue_script('tunique-site', get_theme_file_uri('/assets/site.js'), array(), '1.0.0', true);
+    wp_enqueue_style('tunique-site', get_theme_file_uri('/assets/site.css'), array(), '1.0.1');
+    wp_enqueue_style('tunique-wp', get_theme_file_uri('/assets/wordpress.css'), array('tunique-site'), '1.0.1');
+    wp_enqueue_script('tunique-site', get_theme_file_uri('/assets/site.js'), array(), '1.0.1', true);
 });
 // Local paths are resolved at render time: staging links stay inside its subdirectory.
 function tunique_markup($markup) {
